@@ -12,18 +12,24 @@ public class Board {
 
     public Board(int size) {
         this.cells = this.generateBoard(size);
-
-        //generate cells
     }
 
     public void mineRevealed() {
         //TODO tell handler game over player lost
     }
 
-    public void reveal(int toRevealXPosition, int toRevealYPosition, int callerXPosition, int callerYPosition) {
-        //TODO add out of bound handling
+    public void reveal(int toRevealXPosition, int toRevealYPosition) {
+        
+        //out of bounds case
+        if (toRevealXPosition < 0 || toRevealYPosition < 0 || toRevealXPosition >= size || toRevealYPosition >= size) {
+            return;
+        }
 
-        cells.get(toRevealYPosition).get(toRevealXPosition).reveal(callerXPosition, callerYPosition);
+        Cell toReveal = cells.get(toRevealYPosition).get(toRevealXPosition);
+
+        if (! toReveal.getIsRevealed()) {
+            toReveal.reveal();
+        }
     }
 
     protected ArrayList<ArrayList<Cell>> generateBoard(int size) {
@@ -38,11 +44,14 @@ public class Board {
 
             for(int row = 0; row < size; row++) {
 
-                //TODO calc values for param
-                boolean isMine = false;
-                int numMinesAdjacent = 0;
-                
+                boolean isMine = this.isMine(minePositions, column, row);
+                int numMinesAdjacent = this.numAdjacentMines(minePositions, column, row);
+
                 Cell currentCell = new Cell(this, isMine, numMinesAdjacent, column, row);
+
+                if (! isMine) {
+                    this.nonMineCells.add(currentCell);
+                }
 
                 currentRow.add(currentCell);
             }
@@ -51,6 +60,38 @@ public class Board {
         }
 
         return cells;
+    }
+
+    protected boolean isMine(ArrayList<int[]> minePositions, int xPosition, int yPosition) {
+
+        for (int[] mine : minePositions) {
+
+            int mineXPosition = mine[0];
+            int mineYPosition = mine[1];
+
+            if (mineXPosition == xPosition && mineYPosition == yPosition) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected int numAdjacentMines(ArrayList<int[]> minePositions, int xPosition, int yPosition) {
+        int numAdjacentMines = 0;
+
+        for (int[] mine : minePositions) {
+
+            int mineXPosition = mine[0];
+            int mineYPosition = mine[1];
+
+            if ((xPosition - 1 == mineXPosition || xPosition + 1 == mineXPosition || xPosition == mineXPosition) &&
+                (yPosition - 1 == mineYPosition || yPosition + 1 == mineYPosition || yPosition == mineYPosition)) {
+
+                numAdjacentMines += 1;
+            }
+        }
+
+        return numAdjacentMines;
     }
 
     protected ArrayList<int[]> generateMinePositions(int size) {

@@ -22,7 +22,7 @@ public class Cell {
         this.isRevealed = false;
     }
 
-    public void reveal(int callerXPosition, int callerYPosition) {
+    public void reveal() {
 
         if (this.isMine) {
             board.mineRevealed();
@@ -31,11 +31,29 @@ public class Cell {
 
         this.isRevealed = true;
 
-        //reveal adjacent cells
+        if (this.numMinesAdjacent == 0) {
+            //reveal adjacent cells
+            this.board.reveal(xPosition - 1, yPosition);
+            this.board.reveal(xPosition + 1, yPosition);
+            this.board.reveal(xPosition, yPosition - 1);
+            this.board.reveal(xPosition, yPosition + 1);
+            this.board.reveal(xPosition - 1, yPosition - 1);
+            this.board.reveal(xPosition + 1, yPosition + 1);
+            this.board.reveal(xPosition + 1, yPosition - 1);
+            this.board.reveal(xPosition - 1, yPosition + 1);
+        }
     }
 
     public void changeFlag() {
         this.isFlagged = ! this.isFlagged;
+    }
+
+    public boolean getIsRevealed() {
+        return this.isRevealed;
+    }
+
+    public boolean getIsFlagged() {
+        return this.isFlagged;
     }
 
 }
