@@ -42,6 +42,21 @@ public class BoardTest {
   }
 
   @Test
+  public void testIsMineBadMine() {
+    ArrayList<int[]> minePositions = new ArrayList<int[]>();
+
+    int[] point = {6};
+    minePositions.add(point);
+
+    for (int i = 0; i < 9; i++) {
+      int[] pointOne = {i, i};
+      minePositions.add(pointOne);
+    }
+
+    assertEquals(false, this.board.isMine(minePositions, 7, 7));
+  }
+
+  @Test
   public void testIsMineNull() {
     assertEquals(false, this.board.isMine(null, 7, 7));
   }
@@ -99,6 +114,21 @@ public class BoardTest {
   @Test
   public void testNumAdjacentMinesNull() {
     assertEquals(0, this.board.numAdjacentMines(null, 7, 7));
+  }
+
+  @Test
+  public void testNumAdjacentMinesBadMine() {
+    ArrayList<int[]> minePositions = new ArrayList<int[]>();
+
+    int[] point = {6};
+    minePositions.add(point);
+
+    for (int i = 0; i < 9; i++) {
+      int[] pointOne = {i, i};
+      minePositions.add(pointOne);
+    }
+
+    assertEquals(0, this.board.numAdjacentMines(minePositions, 7, 7));
   }
 
   @Test

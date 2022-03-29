@@ -78,6 +78,8 @@ public class Board {
 
         for (int[] mine : minePositions) {
 
+            if (mine.length != 2) { return false; }
+
             int mineXPosition = mine[0];
             int mineYPosition = mine[1];
 
@@ -94,6 +96,8 @@ public class Board {
         if (minePositions == null) { return numAdjacentMines; }
 
         for (int[] mine : minePositions) {
+
+            if (mine.length != 2) { return 0; }
 
             int mineXPosition = mine[0];
             int mineYPosition = mine[1];
