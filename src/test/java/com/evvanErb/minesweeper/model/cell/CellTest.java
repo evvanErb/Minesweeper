@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
-
-import com.evvanErb.minesweeper.model.cell.Cell;
 import com.evvanErb.minesweeper.model.board.Board;
 
 @RunWith(MockitoJUnitRunner.class)

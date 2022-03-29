@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.Before;
 import java.util.ArrayList;
-import com.evvanErb.minesweeper.model.board.Board;
 
 public class BoardTest {
 
