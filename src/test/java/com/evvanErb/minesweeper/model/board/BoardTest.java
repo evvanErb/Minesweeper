@@ -78,7 +78,7 @@ public class BoardTest {
     assertEquals(1, this.board.numAdjacentMines(minePositions, 2, 4));
     assertEquals(2, this.board.numAdjacentMines(minePositions, 3, 4));
     assertEquals(3, this.board.numAdjacentMines(minePositions, 5, 4));
-    assertEquals(4, this.board.numAdjacentMines(minePositions, 5, 6));
+    assertEquals(3, this.board.numAdjacentMines(minePositions, 5, 6));
   }
 
   @Test
