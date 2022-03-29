@@ -63,7 +63,7 @@ public class BoardTest {
   public void testNumAdjacentMinesNonZero() {
     ArrayList<int[]> minePositions = new ArrayList<int[]>();
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
       int[] point = {i, i};
       minePositions.add(point);
     }
@@ -74,11 +74,26 @@ public class BoardTest {
     int[] pointTwo = {4, 6};
     minePositions.add(pointTwo);
 
+    int[] pointThree = {7, 8};
+    minePositions.add(pointThree);
+    int[] pointFour = {7, 9};
+    minePositions.add(pointFour);
+    int[] pointFive = {8, 9};
+    minePositions.add(pointFive);
+    int[] pointSix = {9, 9};
+    minePositions.add(pointSix);
+    int[] pointSeven = {9, 8};
+    minePositions.add(pointSeven);
+    int[] pointEight = {9, 7};
+    minePositions.add(pointEight);
+    int[] pointNine = {8, 7};
+    minePositions.add(pointNine);
 
     assertEquals(1, this.board.numAdjacentMines(minePositions, 2, 4));
     assertEquals(2, this.board.numAdjacentMines(minePositions, 3, 4));
     assertEquals(3, this.board.numAdjacentMines(minePositions, 5, 4));
-    assertEquals(3, this.board.numAdjacentMines(minePositions, 5, 6));
+    assertEquals(4, this.board.numAdjacentMines(minePositions, 5, 6));
+    assertEquals(8, this.board.numAdjacentMines(minePositions, 8, 8));
   }
 
   @Test
