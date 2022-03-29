@@ -29,6 +29,10 @@ public class Cell {
             return;
         }
 
+        if (this.isFlagged) {
+            this.isFlagged = false;
+        }
+
         this.isRevealed = true;
 
         if (this.numMinesAdjacent == 0) {

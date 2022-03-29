@@ -32,6 +32,14 @@ public class Board {
         }
     }
 
+    public void changeFlag(int toRevealXPosition, int toRevealYPosition) {
+
+        Cell toChangeFlag = cells.get(toRevealYPosition).get(toRevealXPosition);
+        if (! toChangeFlag.getIsRevealed()) {
+            toChangeFlag.changeFlag();
+        }
+    }
+
     protected ArrayList<ArrayList<Cell>> generateBoard(int size) {
 
         ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>(size);
