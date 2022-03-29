@@ -1,14 +1,16 @@
-package main.model.board;
+package com.evvanErb.minesweeper.model.board;
 
 import java.util.ArrayList;
 
-import main.model.cell.Cell;
+import com.evvanErb.minesweeper.model.cell.Cell;
 
 public class Board {
     
     private ArrayList<ArrayList<Cell>> cells;
     private ArrayList<Cell> nonMineCells;
     private int size;
+
+    public Board() { }
 
     public Board(int size) {
         this.cells = this.generateBoard(size);
@@ -72,6 +74,8 @@ public class Board {
 
     protected boolean isMine(ArrayList<int[]> minePositions, int xPosition, int yPosition) {
 
+        if (minePositions == null) { return false; }
+
         for (int[] mine : minePositions) {
 
             int mineXPosition = mine[0];
@@ -86,6 +90,8 @@ public class Board {
 
     protected int numAdjacentMines(ArrayList<int[]> minePositions, int xPosition, int yPosition) {
         int numAdjacentMines = 0;
+
+        if (minePositions == null) { return numAdjacentMines; }
 
         for (int[] mine : minePositions) {
 

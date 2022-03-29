@@ -1,6 +1,6 @@
-package main.model.cell;
+package com.evvanErb.minesweeper.model.cell;
 
-import main.model.board.Board;
+import com.evvanErb.minesweeper.model.board.Board;
 
 public class Cell {
 
