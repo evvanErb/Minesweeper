@@ -27,19 +27,13 @@ public class Board {
             return;
         }
 
-        Cell toReveal = cells.get(toRevealYPosition).get(toRevealXPosition);
-
-        if (! toReveal.getIsRevealed()) {
-            toReveal.reveal();
-        }
+        cells.get(toRevealYPosition).get(toRevealXPosition).reveal();
     }
 
     public void changeFlag(int toRevealXPosition, int toRevealYPosition) {
 
         Cell toChangeFlag = cells.get(toRevealYPosition).get(toRevealXPosition);
-        if (! toChangeFlag.getIsRevealed()) {
-            toChangeFlag.changeFlag();
-        }
+        toChangeFlag.changeFlag();
     }
 
     protected ArrayList<ArrayList<Cell>> generateBoard(int size) {

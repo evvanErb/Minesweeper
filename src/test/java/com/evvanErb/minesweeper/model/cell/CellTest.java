@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.Before;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
 
 import com.evvanErb.minesweeper.model.cell.Cell;
 import com.evvanErb.minesweeper.model.board.Board;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CellTest {
 
   @Mock
@@ -29,6 +31,35 @@ public class CellTest {
     assertEquals(true, cell.getIsFlagged());
     cell.changeFlag();
     assertEquals(false, cell.getIsFlagged());
+    cell.changeFlag();
+    assertEquals(true, cell.getIsFlagged());
+
+    cell.reveal();
+    assertEquals(false, cell.getIsFlagged());
+    cell.changeFlag();
+    assertEquals(false, cell.getIsFlagged());    
+  }
+
+  @Test
+  public void testRevealNonMine() {
+
+    Cell cell = new Cell(this.mockBoard, false, 1, 5, 5);
+    assertEquals(false, cell.getIsRevealed());
+
+    cell.reveal();
+
+    assertEquals(true, cell.getIsRevealed());
+  }
+
+  @Test
+  public void testRevealMine() {
+
+    Cell cell = new Cell(this.mockBoard, true, 1, 5, 5);
+    assertEquals(false, cell.getIsRevealed());
+
+    cell.reveal();
+
+    assertEquals(true, cell.getIsRevealed());
   }
 
 }

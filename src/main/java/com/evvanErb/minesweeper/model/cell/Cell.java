@@ -24,32 +24,34 @@ public class Cell {
 
     public void reveal() {
 
-        if (this.isMine) {
-            board.mineRevealed();
-            return;
-        }
+        if (! this.isRevealed) {
+            this.isRevealed = true;
 
-        if (this.isFlagged) {
-            this.isFlagged = false;
-        }
+            if (this.isFlagged) {
+                this.isFlagged = false;
+            }
 
-        this.isRevealed = true;
-
-        if (this.numMinesAdjacent == 0) {
-            //reveal adjacent cells
-            this.board.reveal(xPosition - 1, yPosition);
-            this.board.reveal(xPosition + 1, yPosition);
-            this.board.reveal(xPosition, yPosition - 1);
-            this.board.reveal(xPosition, yPosition + 1);
-            this.board.reveal(xPosition - 1, yPosition - 1);
-            this.board.reveal(xPosition + 1, yPosition + 1);
-            this.board.reveal(xPosition + 1, yPosition - 1);
-            this.board.reveal(xPosition - 1, yPosition + 1);
+            if (this.isMine) {
+                this.board.mineRevealed();
+            }
+            else if (this.numMinesAdjacent == 0) {
+                //reveal adjacent cells
+                this.board.reveal(xPosition - 1, yPosition);
+                this.board.reveal(xPosition + 1, yPosition);
+                this.board.reveal(xPosition, yPosition - 1);
+                this.board.reveal(xPosition, yPosition + 1);
+                this.board.reveal(xPosition - 1, yPosition - 1);
+                this.board.reveal(xPosition + 1, yPosition + 1);
+                this.board.reveal(xPosition + 1, yPosition - 1);
+                this.board.reveal(xPosition - 1, yPosition + 1);
+            }
         }
     }
 
     public void changeFlag() {
-        this.isFlagged = ! this.isFlagged;
+        if (! this.isRevealed) {
+            this.isFlagged = ! this.isFlagged;
+        }
     }
 
     public boolean getIsRevealed() {
