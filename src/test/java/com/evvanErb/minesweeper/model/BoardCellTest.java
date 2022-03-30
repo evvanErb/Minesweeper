@@ -146,4 +146,82 @@ public class BoardCellTest {
         row++;
     }
   }
+
+  @Test
+  public void testRevealBadPoint() {
+    Board board = this.buildBoard();
+
+    board.reveal(-1,7);
+    board.reveal(7, 11);
+    ArrayList<ArrayList<Cell>> cells = board.getBoard();
+
+    for (ArrayList<Cell> rowList : cells) {
+        for (Cell cell : rowList) {
+
+            if (cell.getIsRevealed()){
+                fail("[!] Nothing should be revealed");
+            }
+        }
+    }
+  }
+
+  @Test
+  public void testChangeFlag() {
+    Board board = this.buildBoard();
+
+    board.changeFlag(7,7);
+    board.changeFlag(2,8);
+    board.changeFlag(9,1);
+    ArrayList<ArrayList<Cell>> cells = board.getBoard();
+
+    int row = 0;
+    for (ArrayList<Cell> rowList : cells) {
+
+        int column = 0;
+        for (Cell cell : rowList) {
+
+            if (((row == 7 && column == 7) || (row == 8 && column == 2) || (row == 1 && column == 9)) && ! cell.getIsFlagged()) {
+                fail("[!] These points should be flagged " + Integer.toString(column) + " " + Integer.toString(row));
+            }
+            else if (cell.getIsFlagged() && !((row == 7 && column == 7) || (row == 8 && column == 2) || (row == 1 && column == 9))){
+                fail("[!] Only the three specified points should be flagged " + Integer.toString(column) + " " + Integer.toString(row));
+            }
+
+            column++;
+        }
+        row++;
+    }
+
+    board.changeFlag(7,7);
+    board.changeFlag(2,8);
+    board.changeFlag(9,1);
+    cells = board.getBoard();
+
+    for (ArrayList<Cell> rowList : cells) {
+        for (Cell cell : rowList) {
+
+            if (cell.getIsFlagged()){
+                fail("[!] Nothing should be flagged");
+            }
+        }
+    }
+  }
+
+  @Test
+  public void testChangeFlagBadPoint() {
+    Board board = this.buildBoard();
+
+    board.changeFlag(-1,7);
+    board.changeFlag(7, 11);
+    ArrayList<ArrayList<Cell>> cells = board.getBoard();
+
+    for (ArrayList<Cell> rowList : cells) {
+        for (Cell cell : rowList) {
+
+            if (cell.getIsFlagged()){
+                fail("[!] Nothing should be flagged");
+            }
+        }
+    }
+  }
 }

@@ -45,9 +45,14 @@ public class Board {
         this.cells.get(toRevealYPosition).get(toRevealXPosition).reveal();
     }
 
-    public void changeFlag(int toRevealXPosition, int toRevealYPosition) {
+    public void changeFlag(int toFlagXPosition, int toFlagYPosition) {
 
-        Cell toChangeFlag = this.cells.get(toRevealYPosition).get(toRevealXPosition);
+        //out of bounds case
+        if (toFlagXPosition < 0 || toFlagYPosition < 0 || toFlagXPosition >= size || toFlagYPosition >= size) {
+            return;
+        }
+
+        Cell toChangeFlag = this.cells.get(toFlagYPosition).get(toFlagXPosition);
         toChangeFlag.changeFlag();
     }
 
