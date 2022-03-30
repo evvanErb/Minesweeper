@@ -1,2 +1,3 @@
 com/evvanErb/minesweeper/model/board/BoardTest.class
+com/evvanErb/minesweeper/model/BoardCellTest.class
 com/evvanErb/minesweeper/model/cell/CellTest.class

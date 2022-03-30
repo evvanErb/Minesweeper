@@ -19,7 +19,14 @@ public class Board {
         this.size = size;
         this.cells = this.generateBoard(this.size);
 
-        //TODO iterate over cells and get all non-mines
+        for (ArrayList<Cell> rowList : this.cells) {
+            for (Cell cell : rowList) {
+
+                if (! cell.getIsMine()) {
+                    this.nonMineCells.add(cell);
+                }
+            }
+        }
     }
 
     public void setBoard(ArrayList<ArrayList<Cell>> cells, int size) {
