@@ -114,7 +114,39 @@ public class Board {
             return null;
         }
 
+        int numMines = size * 15 / 100;
+        ArrayList<int[]> minePositions = new ArrayList<int[]>();
+
+        for(int i = 0; i < numMines; i++) {
+            int[] currentMine = this.generateRandomCoordsNoDups(minePositions, size);
+        }
+
         //TODO add random generation of points
-        return new ArrayList<int[]>();
+        return minePositions;
+    }
+
+    protected int[] generateRandomCoordsNoDups(ArrayList<int[]> exisitingCoords, int size) {
+        for (int i = 0; i < 8; i++) {
+            int[] point = {i, i};
+            minePositions.add(point);
+        }
+        int[] point = {6, 5};
+        minePositions.add(point);
+        int[] pointTwo = {4, 6};
+        minePositions.add(pointTwo);
+        int[] pointThree = {7, 8};
+        minePositions.add(pointThree);
+        int[] pointFour = {7, 9};
+        minePositions.add(pointFour);
+        int[] pointFive = {8, 9};
+        minePositions.add(pointFive);
+        int[] pointSix = {9, 9};
+        minePositions.add(pointSix);
+        int[] pointSeven = {9, 8};
+        minePositions.add(pointSeven);
+        int[] pointEight = {9, 7};
+        minePositions.add(pointEight);
+        int[] pointNine = {8, 7};
+        minePositions.add(pointNine);
     }
 }

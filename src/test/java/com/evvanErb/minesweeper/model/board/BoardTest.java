@@ -243,5 +243,47 @@ public class BoardTest {
     ArrayList<int[]> minePositionsMax = this.board.generateMinePositions(51);
     assertEquals(null, minePositionsMax);
   }
+
+  @Test
+  public void testGenerateRandomCoordsNoDups() {
+    ArrayList<int[]> minePositions = new ArrayList<int[]>();
+    for (int i = 0; i < 2; i++) {
+      int[] point = {i, i};
+      minePositions.add(point);
+    }
+    int[] pointOne = {0, 1};
+    minePositions.add(pointOne);
+
+    int[] mine = this.board.generateRandomCoordsNoDups(minePositions, 2);
+    if (mine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+
+    if (mine[0] != 1 || mine[1] != 0) {
+      fail("[!] Wrong position for mine. Only one was possible");
+    }
+  }
+
+  @Test
+  public void testGenerateRandomCoordsNoDupsNotPossible() {
+
+    ArrayList<int[]> minePositions = new ArrayList<int[]>();
+    for (int i = 0; i < 2; i++) {
+      int[] point = {i, i};
+      minePositions.add(point);
+    }
+    int[] pointOne = {0, 1};
+    minePositions.add(pointOne);
+    int[] pointTwo = {1, 0};
+    minePositions.add(pointTwo);
+
+    assertEquals(null, this.board.generateRandomCoordsNoDups(minePositions, 2));
+
+    minePositions = new ArrayList<int[]>();
+    assertEquals(null, this.board.generateRandomCoordsNoDups(minePositions, -1));
+  }
+
+  @Test
+  public void testGenerateRandomCoordsNoDupsNull() {
+    assertEquals(null, this.board.generateRandomCoordsNoDups(null, 10));
+  }
 }
 
