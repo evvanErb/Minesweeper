@@ -6,6 +6,8 @@ import org.junit.Before;
 import static junit.framework.TestCase.fail;
 import java.util.ArrayList;
 
+import com.evvanErb.minesweeper.model.cell.Cell;
+
 public class BoardTest {
 
   private Board board;
@@ -286,6 +288,40 @@ public class BoardTest {
   @Test
   public void testGenerateRandomCoordsNoDupsNull() {
     assertEquals(null, this.board.generateRandomCoordsNoDups(null, 10));
+  }
+
+  @Test
+  public void testGenerateBoard() {
+
+    ArrayList<ArrayList<Cell>> cells = this.board.generateBoard(25);
+
+    if (cells.size() != 25) {
+      fail("[!] Wrong amount of rows");
+    }
+    for (int row = 0; row < 25; row++) {
+      if (cells.get(row).size() != 25) {
+        fail("[!] Wrong amount of columns");
+      }
+    }
+
+    int numMines = 0;
+    for (int row = 0; row < 25; row++) {
+      for (int column = 0; column < 25; column++) {
+        if (cells.get(row).get(column).getIsMine()) {
+          numMines++;
+        }
+      }
+    }
+
+    if (numMines != (25 * 25 * 15 / 100)) {
+      fail("[!] Wrong number of mines");
+    }
+  }
+
+  @Test
+  public void testGenerateBoardSizeOutOfBounds() {
+    assertEquals(null, this.board.generateBoard(9));
+    assertEquals(null, this.board.generateBoard(51));
   }
 }
 

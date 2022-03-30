@@ -62,4 +62,8 @@ public class Cell {
         return this.isFlagged;
     }
 
+    public boolean getIsMine() {
+        return this.isMine;
+    }
+
 }

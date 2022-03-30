@@ -17,6 +17,8 @@ public class Board {
 
     public Board(int size) {
         this.cells = this.generateBoard(size);
+
+        //TODO iterate over cells and get all non-mines
     }
 
     public void mineRevealed() {
@@ -59,10 +61,6 @@ public class Board {
                 int numMinesAdjacent = this.numAdjacentMines(minePositions, column, row);
 
                 Cell currentCell = new Cell(this, isMine, numMinesAdjacent, column, row);
-
-                if (! isMine) {
-                    this.nonMineCells.add(currentCell);
-                }
 
                 currentRow.add(currentCell);
             }
