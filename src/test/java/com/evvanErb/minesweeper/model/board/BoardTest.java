@@ -3,6 +3,7 @@ package com.evvanErb.minesweeper.model.board;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.junit.Before;
+import static junit.framework.TestCase.fail;
 import java.util.ArrayList;
 
 public class BoardTest {
@@ -131,8 +132,116 @@ public class BoardTest {
   }
 
   @Test
-  public void testGenerateMinePositions() {
-      
+  public void testGenerateMinePositionsSmall() {
+    ArrayList<int[]> minePositions = this.board.generateMinePositions(10);
+
+    int numberOfMines = minePositions.size();
+    if (numberOfMines != (10 * 15 / 100)) {
+      fail("[!] Wrong amount of mines");
+    }
+
+    for (int i = 0; i < numberOfMines; i++) {
+
+      int[] mine = minePositions.get(i);
+
+      if (mine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+
+      int mineXPosition = mine[0];
+      int mineYPosition = mine[1];
+
+      if (mineXPosition < 0 || mineXPosition >= 10 || mineYPosition < 0 || mineYPosition >= 10) {
+        fail("[!] Mine out of bounds");
+      }
+
+      for (int j = i+1; j < numberOfMines; j++) {
+
+        int[] comparingMine = minePositions.get(j);
+
+        if (comparingMine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+        
+        if (comparingMine[0] == mineXPosition && comparingMine[1] == mineYPosition) {
+          fail("[!] Duplicate mine");
+        }
+      }
+    }
+  }
+
+  @Test
+  public void testGenerateMinePositionsMedium() {
+    ArrayList<int[]> minePositions = this.board.generateMinePositions(25);
+
+    int numberOfMines = minePositions.size();
+    if (numberOfMines != (25 * 15 / 100)) {
+      fail("[!] Wrong amount of mines");
+    }
+
+    for (int i = 0; i < numberOfMines; i++) {
+
+      int[] mine = minePositions.get(i);
+
+      if (mine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+
+      int mineXPosition = mine[0];
+      int mineYPosition = mine[1];
+
+      if (mineXPosition < 0 || mineXPosition >= 25 || mineYPosition < 0 || mineYPosition >= 25) {
+        fail("[!] Mine out of bounds");
+      }
+
+      for (int j = i+1; j < numberOfMines; j++) {
+
+        int[] comparingMine = minePositions.get(j);
+
+        if (comparingMine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+        
+        if (comparingMine[0] == mineXPosition && comparingMine[1] == mineYPosition) {
+          fail("[!] Duplicate mine");
+        }
+      }
+    }
+  }
+
+  @Test
+  public void testGenerateMinePositionsLarge() {
+    ArrayList<int[]> minePositions = this.board.generateMinePositions(50);
+
+    int numberOfMines = minePositions.size();
+    if (numberOfMines != (50 * 15 / 100)) {
+      fail("[!] Wrong amount of mines");
+    }
+
+    for (int i = 0; i < numberOfMines; i++) {
+
+      int[] mine = minePositions.get(i);
+
+      if (mine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+
+      int mineXPosition = mine[0];
+      int mineYPosition = mine[1];
+
+      if (mineXPosition < 0 || mineXPosition >= 50 || mineYPosition < 0 || mineYPosition >= 50) {
+        fail("[!] Mine out of bounds");
+      }
+
+      for (int j = i+1; j < numberOfMines; j++) {
+
+        int[] comparingMine = minePositions.get(j);
+
+        if (comparingMine.length != 2) { fail("[!] Wrong mine array coordiantes size"); }
+        
+        if (comparingMine[0] == mineXPosition && comparingMine[1] == mineYPosition) {
+          fail("[!] Duplicate mine");
+        }
+      }
+    }
+  }
+
+  @Test
+  public void testGenerateMinePositionsOutsideBoardSize() {
+    ArrayList<int[]> minePositionsMin = this.board.generateMinePositions(9);
+    assertEquals(null, minePositionsMin);
+    ArrayList<int[]> minePositionsMax = this.board.generateMinePositions(51);
+    assertEquals(null, minePositionsMax);
   }
 }
 

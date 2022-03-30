@@ -9,6 +9,8 @@ public class Board {
     private ArrayList<ArrayList<Cell>> cells;
     private ArrayList<Cell> nonMineCells;
     private int size;
+    private int MIN_BOARD_SIZE = 10;
+    private int MAX_BOARD_SIZE = 50;
 
     public Board() { }
 
@@ -107,6 +109,11 @@ public class Board {
     }
 
     protected ArrayList<int[]> generateMinePositions(int size) {
+
+        if (size < MIN_BOARD_SIZE || size > MAX_BOARD_SIZE) {
+            return null;
+        }
+
         //TODO add random generation of points
         return new ArrayList<int[]>();
     }
