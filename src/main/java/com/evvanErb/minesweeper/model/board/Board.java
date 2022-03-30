@@ -41,6 +41,10 @@ public class Board {
 
     protected ArrayList<ArrayList<Cell>> generateBoard(int size) {
 
+        if (size < MIN_BOARD_SIZE || size > MAX_BOARD_SIZE) {
+            return null;
+        }
+
         ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>(size);
 
         ArrayList<int[]> minePositions = this.generateMinePositions(size);
@@ -111,9 +115,7 @@ public class Board {
 
     protected ArrayList<int[]> generateMinePositions(int size) {
 
-        if (size < MIN_BOARD_SIZE || size > MAX_BOARD_SIZE) {
-            return null;
-        }
+        if (size <= 0) { return null; }
 
         int numMines = size * size * 15 / 100;
         ArrayList<int[]> minePositions = new ArrayList<int[]>();

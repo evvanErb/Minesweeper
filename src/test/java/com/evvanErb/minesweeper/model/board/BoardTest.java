@@ -237,11 +237,13 @@ public class BoardTest {
   }
 
   @Test
-  public void testGenerateMinePositionsOutsideBoardSize() {
-    ArrayList<int[]> minePositionsMin = this.board.generateMinePositions(9);
-    assertEquals(null, minePositionsMin);
-    ArrayList<int[]> minePositionsMax = this.board.generateMinePositions(51);
-    assertEquals(null, minePositionsMax);
+  public void testGenerateMinePositionsSmallSizes() {
+    ArrayList<int[]> minePositions = this.board.generateMinePositions(0);
+    assertEquals(null, minePositions);
+    minePositions = this.board.generateMinePositions(2);
+    assertEquals(0, minePositions.size());
+    minePositions = this.board.generateMinePositions(3);
+    assertEquals(1, minePositions.size());
   }
 
   @Test
