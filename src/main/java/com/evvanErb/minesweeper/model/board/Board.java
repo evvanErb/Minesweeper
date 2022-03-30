@@ -32,12 +32,12 @@ public class Board {
             return;
         }
 
-        cells.get(toRevealYPosition).get(toRevealXPosition).reveal();
+        this.cells.get(toRevealYPosition).get(toRevealXPosition).reveal();
     }
 
     public void changeFlag(int toRevealXPosition, int toRevealYPosition) {
 
-        Cell toChangeFlag = cells.get(toRevealYPosition).get(toRevealXPosition);
+        Cell toChangeFlag = this.cells.get(toRevealYPosition).get(toRevealXPosition);
         toChangeFlag.changeFlag();
     }
 
