@@ -66,4 +66,8 @@ public class Cell {
         return this.isMine;
     }
 
+    public int[] getPosition() {
+        return new int[]{xPosition, yPosition};
+    }
+
 }

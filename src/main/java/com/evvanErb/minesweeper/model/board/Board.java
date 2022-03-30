@@ -13,12 +13,22 @@ public class Board {
     private int MIN_BOARD_SIZE = 10;
     private int MAX_BOARD_SIZE = 50;
 
-    public Board() { }
+    public Board() {   }
 
     public Board(int size) {
-        this.cells = this.generateBoard(size);
+        this.size = size;
+        this.cells = this.generateBoard(this.size);
 
         //TODO iterate over cells and get all non-mines
+    }
+
+    public void setBoard(ArrayList<ArrayList<Cell>> cells, int size) {
+        this.cells = cells;
+        this.size = size;
+    }
+
+    public ArrayList<ArrayList<Cell>> getBoard() {
+        return this.cells;
     }
 
     public void mineRevealed() {
