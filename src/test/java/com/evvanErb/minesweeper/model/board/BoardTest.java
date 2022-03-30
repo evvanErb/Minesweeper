@@ -136,7 +136,7 @@ public class BoardTest {
     ArrayList<int[]> minePositions = this.board.generateMinePositions(10);
 
     int numberOfMines = minePositions.size();
-    if (numberOfMines != (10 * 15 / 100)) {
+    if (numberOfMines != (10 * 10 * 15 / 100)) {
       fail("[!] Wrong amount of mines");
     }
 
@@ -171,7 +171,7 @@ public class BoardTest {
     ArrayList<int[]> minePositions = this.board.generateMinePositions(25);
 
     int numberOfMines = minePositions.size();
-    if (numberOfMines != (25 * 15 / 100)) {
+    if (numberOfMines != (25 * 25 * 15 / 100)) {
       fail("[!] Wrong amount of mines");
     }
 
@@ -206,7 +206,7 @@ public class BoardTest {
     ArrayList<int[]> minePositions = this.board.generateMinePositions(50);
 
     int numberOfMines = minePositions.size();
-    if (numberOfMines != (50 * 15 / 100)) {
+    if (numberOfMines != (50 * 50 * 15 / 100)) {
       fail("[!] Wrong amount of mines");
     }
 

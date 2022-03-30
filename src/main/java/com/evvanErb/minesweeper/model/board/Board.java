@@ -1,6 +1,7 @@
 package com.evvanErb.minesweeper.model.board;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.evvanErb.minesweeper.model.cell.Cell;
 
@@ -114,39 +115,39 @@ public class Board {
             return null;
         }
 
-        int numMines = size * 15 / 100;
+        int numMines = size * size * 15 / 100;
         ArrayList<int[]> minePositions = new ArrayList<int[]>();
 
         for(int i = 0; i < numMines; i++) {
             int[] currentMine = this.generateRandomCoordsNoDups(minePositions, size);
+
+            minePositions.add(currentMine);
         }
 
-        //TODO add random generation of points
         return minePositions;
     }
 
     protected int[] generateRandomCoordsNoDups(ArrayList<int[]> exisitingCoords, int size) {
-        for (int i = 0; i < 8; i++) {
-            int[] point = {i, i};
-            minePositions.add(point);
-        }
-        int[] point = {6, 5};
-        minePositions.add(point);
-        int[] pointTwo = {4, 6};
-        minePositions.add(pointTwo);
-        int[] pointThree = {7, 8};
-        minePositions.add(pointThree);
-        int[] pointFour = {7, 9};
-        minePositions.add(pointFour);
-        int[] pointFive = {8, 9};
-        minePositions.add(pointFive);
-        int[] pointSix = {9, 9};
-        minePositions.add(pointSix);
-        int[] pointSeven = {9, 8};
-        minePositions.add(pointSeven);
-        int[] pointEight = {9, 7};
-        minePositions.add(pointEight);
-        int[] pointNine = {8, 7};
-        minePositions.add(pointNine);
+        
+        if (exisitingCoords == null || exisitingCoords.size() >= size*size || size <= 0) { return null; }
+
+        Random r = new Random();
+        boolean alreadyExists;
+        int[] newCoord;
+
+        do {
+            alreadyExists = false;
+
+            newCoord = new int[]{(r.nextInt(size)), (r.nextInt(size))};
+
+            for (int i = 0; i < exisitingCoords.size(); i++) {
+
+                if (newCoord[0] == exisitingCoords.get(i)[0] && newCoord[1] == exisitingCoords.get(i)[1]) {
+                    alreadyExists = true;
+                }
+            }
+        } while(alreadyExists);
+
+        return newCoord;
     }
 }

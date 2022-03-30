@@ -1,16 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.evvanErb.minesweeper.model.board.BoardTest
 -------------------------------------------------------------------------------
-Tests run: 12, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.048 s <<< FAILURE! - in com.evvanErb.minesweeper.model.board.BoardTest
-testGenerateMinePositionsMedium(com.evvanErb.minesweeper.model.board.BoardTest)  Time elapsed: 0.009 s  <<< FAILURE!
-junit.framework.AssertionFailedError: [!] Wrong amount of mines
-	at com.evvanErb.minesweeper.model.board.BoardTest.testGenerateMinePositionsMedium(BoardTest.java:175)
-
-testGenerateMinePositionsLarge(com.evvanErb.minesweeper.model.board.BoardTest)  Time elapsed: 0.001 s  <<< FAILURE!
-junit.framework.AssertionFailedError: [!] Wrong amount of mines
-	at com.evvanErb.minesweeper.model.board.BoardTest.testGenerateMinePositionsLarge(BoardTest.java:210)
-
-testGenerateMinePositionsSmall(com.evvanErb.minesweeper.model.board.BoardTest)  Time elapsed: 0.002 s  <<< FAILURE!
-junit.framework.AssertionFailedError: [!] Wrong amount of mines
-	at com.evvanErb.minesweeper.model.board.BoardTest.testGenerateMinePositionsSmall(BoardTest.java:140)
-
+Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.051 s - in com.evvanErb.minesweeper.model.board.BoardTest
