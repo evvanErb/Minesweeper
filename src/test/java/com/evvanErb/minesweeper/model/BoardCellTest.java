@@ -45,7 +45,7 @@ public class BoardCellTest {
                 numMinesAdjacent = 1;
             }
 
-            Cell currentCell = new Cell(board, isMine, numMinesAdjacent, column, row);
+            Cell currentCell = new Cell(isMine, numMinesAdjacent, column, row);
 
             currentRow.add(currentCell);
         }

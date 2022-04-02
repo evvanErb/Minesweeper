@@ -4,7 +4,6 @@ import com.evvanErb.minesweeper.model.board.Board;
 
 public class Cell {
 
-    private Board board;
     private boolean isMine;
     private int numMinesAdjacent;
     private int xPosition;
@@ -12,8 +11,7 @@ public class Cell {
     private boolean isFlagged;
     private boolean isRevealed;
 
-    public Cell(Board board, boolean isMine, int numMinesAdjacent, int xPosition, int yPosition) {
-        this.board = board;
+    public Cell(boolean isMine, int numMinesAdjacent, int xPosition, int yPosition) {
         this.isMine = isMine;
         this.numMinesAdjacent = numMinesAdjacent;
         this.xPosition = xPosition;
@@ -23,29 +21,8 @@ public class Cell {
     }
 
     public void reveal() {
-
-        if (! this.isRevealed) {
-            this.isRevealed = true;
-
-            if (this.isFlagged) {
-                this.isFlagged = false;
-            }
-
-            if (this.isMine) {
-                this.board.mineRevealed();
-            }
-            else if (this.numMinesAdjacent == 0) {
-                //reveal adjacent cells
-                this.board.reveal((this.xPosition - 1), this.yPosition);
-                this.board.reveal((this.xPosition + 1), this.yPosition);
-                this.board.reveal(this.xPosition, (this.yPosition - 1));
-                this.board.reveal(this.xPosition, (this.yPosition + 1));
-                this.board.reveal((this.xPosition - 1), (this.yPosition - 1));
-                this.board.reveal((this.xPosition + 1), (this.yPosition + 1));
-                this.board.reveal((this.xPosition + 1), (this.yPosition - 1));
-                this.board.reveal((this.xPosition - 1), (this.yPosition + 1));
-            }
-        }
+        this.isRevealed = true;
+        this.isFlagged = false;
     }
 
     public void changeFlag() {

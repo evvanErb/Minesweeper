@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.evvanErb.minesweeper.viewmodel.gamemanager.GameManagerTest" time="0.023" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.evvanErb.minesweeper.viewmodel.gamemanager.GameManagerTest" time="0.026" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter1675695749590027259.jar /home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire 2022-04-02T12-19-42_170-jvmRun1 surefire9598602113366403947tmp surefire_016457656498194161449tmp"/>
+    <property name="sun.java.command" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter5430860735491709874.jar /home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire 2022-04-02T13-54-24_136-jvmRun1 surefire329872970029194597tmp surefire_05321935117371720958tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/test-classes:/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/classes:/home/evvanerb/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/evvanerb/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/evvanerb/.m2/repository/org/mockito/mockito-core/4.4.0/mockito-core-4.4.0.jar:/home/evvanerb/.m2/repository/net/bytebuddy/byte-buddy/1.12.8/byte-buddy-1.12.8.jar:/home/evvanerb/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.8/byte-buddy-agent-1.12.8.jar:/home/evvanerb/.m2/repository/org/objenesis/objenesis/3.2/objenesis-3.2.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-controls/17.0.1/javafx-controls-17.0.1.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-controls/17.0.1/javafx-controls-17.0.1-linux.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-graphics/17.0.1/javafx-graphics-17.0.1.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-graphics/17.0.1/javafx-graphics-17.0.1-linux.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-base/17.0.1/javafx-base-17.0.1.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-base/17.0.1/javafx-base-17.0.1-linux.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -32,7 +32,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter1675695749590027259.jar"/>
+    <property name="surefire.real.class.path" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter5430860735491709874.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.14.1+1-Ubuntu-0ubuntu1.20.04"/>
     <property name="user.name" value="evvanerb"/>
@@ -57,5 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testRevealNonMine" classname="com.evvanErb.minesweeper.viewmodel.gamemanager.GameManagerTest" time="0.001"/>
+  <testcase name="testRevealNonMine" classname="com.evvanErb.minesweeper.viewmodel.gamemanager.GameManagerTest" time="0.002"/>
 </testsuite>

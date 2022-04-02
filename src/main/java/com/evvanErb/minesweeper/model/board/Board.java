@@ -78,7 +78,26 @@ public class Board {
             return;
         }
 
-        this.cells.get(toRevealYPosition).get(toRevealXPosition).reveal();
+        Cell cellToReveal = this.cells.get(toRevealYPosition).get(toRevealXPosition);
+
+        if (cellToReveal.getIsMine()) {
+            cellToReveal.reveal();
+            this.mineRevealed();
+        }
+        else if (! cellToReveal.getIsRevealed()) {
+
+            cellToReveal.reveal();
+            if (cellToReveal.getNumMinesAdjacent() == 0) {
+                this.reveal((toRevealXPosition - 1), toRevealYPosition);
+                this.reveal((toRevealXPosition + 1), toRevealYPosition);
+                this.reveal(toRevealXPosition, (toRevealYPosition - 1));
+                this.reveal(toRevealXPosition, (toRevealYPosition + 1));
+                this.reveal((toRevealXPosition - 1), (toRevealYPosition - 1));
+                this.reveal((toRevealXPosition + 1), (toRevealYPosition + 1));
+                this.reveal((toRevealXPosition + 1), (toRevealYPosition - 1));
+                this.reveal((toRevealXPosition - 1), (toRevealYPosition + 1));
+            }
+        }
     }
 
     public String getBoardAsString() {
@@ -152,7 +171,7 @@ public class Board {
                 boolean isMine = this.isMine(minePositions, column, row);
                 int numMinesAdjacent = this.numAdjacentMines(minePositions, column, row);
 
-                Cell currentCell = new Cell(this, isMine, numMinesAdjacent, column, row);
+                Cell currentCell = new Cell(isMine, numMinesAdjacent, column, row);
 
                 currentRow.add(currentCell);
             }
