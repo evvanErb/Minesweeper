@@ -36,14 +36,14 @@ public class Cell {
             }
             else if (this.numMinesAdjacent == 0) {
                 //reveal adjacent cells
-                this.board.reveal(xPosition - 1, yPosition);
-                this.board.reveal(xPosition + 1, yPosition);
-                this.board.reveal(xPosition, yPosition - 1);
-                this.board.reveal(xPosition, yPosition + 1);
-                this.board.reveal(xPosition - 1, yPosition - 1);
-                this.board.reveal(xPosition + 1, yPosition + 1);
-                this.board.reveal(xPosition + 1, yPosition - 1);
-                this.board.reveal(xPosition - 1, yPosition + 1);
+                this.board.reveal((this.xPosition - 1), this.yPosition);
+                this.board.reveal((this.xPosition + 1), this.yPosition);
+                this.board.reveal(this.xPosition, (this.yPosition - 1));
+                this.board.reveal(this.xPosition, (this.yPosition + 1));
+                this.board.reveal((this.xPosition - 1), (this.yPosition - 1));
+                this.board.reveal((this.xPosition + 1), (this.yPosition + 1));
+                this.board.reveal((this.xPosition + 1), (this.yPosition - 1));
+                this.board.reveal((this.xPosition - 1), (this.yPosition + 1));
             }
         }
     }
@@ -64,6 +64,10 @@ public class Cell {
 
     public boolean getIsMine() {
         return this.isMine;
+    }
+
+    public int getNumMinesAdjacent() {
+        return this.numMinesAdjacent;
     }
 
     public int[] getPosition() {

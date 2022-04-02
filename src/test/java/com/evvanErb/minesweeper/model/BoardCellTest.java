@@ -1,13 +1,15 @@
 package com.evvanErb.minesweeper.model;
 
-import static org.junit.Assert.assertEquals;
+import com.evvanErb.minesweeper.model.board.GameStatus;
 import org.junit.Test;
 import org.junit.Before;
+
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.fail;
 import java.util.ArrayList;
 
-import com.evvanErb.minesweeper.model.cell.Cell;
-import com.evvanErb.minesweeper.model.board.Board;
+import com.evvanErb.minesweeper.model.cell.*;
+import com.evvanErb.minesweeper.model.board.*;
 
 public class BoardCellTest {
 
@@ -224,4 +226,29 @@ public class BoardCellTest {
         }
     }
   }
+
+    @Test
+    public void testGameStausVictory() {
+        Board board = this.buildBoard();
+
+        board.reveal(2, 7);
+        board.reveal(1, 0);
+        assertEquals(GameStatus.RUNNING, board.checkForVictory());
+        board.reveal(7, 2);
+        board.reveal(0, 1);
+        board.reveal(9, 8);
+        board.reveal(8, 9);
+        assertEquals(GameStatus.VICTORY, board.checkForVictory());
+    }
+
+    @Test
+    public void testGameStausLost() {
+        Board board = this.buildBoard();
+
+        board.reveal(2, 7);
+        board.reveal(1, 0);
+        assertEquals(GameStatus.RUNNING, board.checkForVictory());
+        board.reveal(7, 7);
+        assertEquals(GameStatus.LOST, board.checkForVictory());
+    }
 }

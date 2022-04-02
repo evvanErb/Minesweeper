@@ -235,8 +235,8 @@ public class BoardTest {
 
   @Test
   public void testGenerateBoardSizeOutOfBounds() {
-    assertEquals(null, this.board.generateBoard(9));
-    assertEquals(null, this.board.generateBoard(51));
+    assertEquals(10, this.board.generateBoard(9).size());
+    assertEquals(50, this.board.generateBoard(51).size());
   }
 }
 

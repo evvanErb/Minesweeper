@@ -12,12 +12,15 @@ public class Board {
     private int size;
     private int MIN_BOARD_SIZE = 10;
     private int MAX_BOARD_SIZE = 50;
+    private GameStatus gameStatus;
 
-    public Board() {   }
+    public Board() { this.gameStatus = GameStatus.RUNNING; }
 
     public Board(int size) {
         this.size = size;
         this.cells = this.generateBoard(this.size);
+        this.gameStatus = GameStatus.RUNNING;
+        this.nonMineCells = new ArrayList<Cell>();
 
         for (ArrayList<Cell> rowList : this.cells) {
             for (Cell cell : rowList) {
@@ -32,6 +35,16 @@ public class Board {
     public void setBoard(ArrayList<ArrayList<Cell>> cells, int size) {
         this.cells = cells;
         this.size = size;
+        this.nonMineCells = new ArrayList<Cell>();
+
+        for (ArrayList<Cell> rowList : this.cells) {
+            for (Cell cell : rowList) {
+
+                if (! cell.getIsMine()) {
+                    this.nonMineCells.add(cell);
+                }
+            }
+        }
     }
 
     public ArrayList<ArrayList<Cell>> getBoard() {
@@ -39,7 +52,23 @@ public class Board {
     }
 
     public void mineRevealed() {
-        //TODO tell handler game over player lost
+        this.gameStatus = GameStatus.LOST;
+    }
+
+    public GameStatus checkForVictory() {
+
+        if (this.gameStatus == GameStatus.RUNNING) {
+
+            this.gameStatus = GameStatus.VICTORY;
+            for(Cell cell : this.nonMineCells) {
+
+                if (! cell.getIsRevealed()) {
+                    this.gameStatus = GameStatus.RUNNING;
+                    break;
+                }
+            }
+        }
+        return this.gameStatus;
     }
 
     public void reveal(int toRevealXPosition, int toRevealYPosition) {
@@ -50,6 +79,38 @@ public class Board {
         }
 
         this.cells.get(toRevealYPosition).get(toRevealXPosition).reveal();
+    }
+
+    public String getBoardAsString() {
+        String boardString = "";
+        for (ArrayList<Cell> row : this.cells) {
+            for (Cell cell : row) {
+                if (cell.getIsMine()) {
+                    boardString += ("(" + cell.getNumMinesAdjacent() + "*)");
+                }
+                else {
+                    boardString += ("(" + cell.getNumMinesAdjacent() + ")");
+                }
+            }
+            boardString += "\n";
+        }
+        boardString += "\n";
+        for (ArrayList<Cell> row : this.cells) {
+            for (Cell cell : row) {
+                if (cell.getIsFlagged()) {
+                    boardString += ("(F)");
+                }
+                else if (cell.getIsRevealed()) {
+                    boardString += ("(" + cell.getNumMinesAdjacent() + ")");
+                }
+                else {
+                    boardString += ("(X)");
+                }
+            }
+            boardString += "\n";
+        }
+
+        return boardString;
     }
 
     public void changeFlag(int toFlagXPosition, int toFlagYPosition) {
@@ -65,19 +126,24 @@ public class Board {
 
     protected ArrayList<ArrayList<Cell>> generateBoard(int size) {
 
-        if (size < MIN_BOARD_SIZE || size > MAX_BOARD_SIZE) {
-            return null;
+        if (size < MIN_BOARD_SIZE) {
+            size = MIN_BOARD_SIZE;
+            this.size = size;
+        }
+        else if (size > MAX_BOARD_SIZE) {
+            size = MAX_BOARD_SIZE;
+            this.size = size;
         }
 
         ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>(size);
 
         ArrayList<int[]> minePositions = this.generateMinePositions(size);
         
-        for(int column = 0; column < size; column++) {
+        for(int row = 0; row < size; row++) {
 
             ArrayList<Cell> currentRow = new ArrayList<Cell>(size);
 
-            for(int row = 0; row < size; row++) {
+            for(int column = 0; column < size; column++) {
 
                 boolean isMine = this.isMine(minePositions, column, row);
                 int numMinesAdjacent = this.numAdjacentMines(minePositions, column, row);
