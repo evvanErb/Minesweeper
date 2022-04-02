@@ -238,5 +238,23 @@ public class BoardTest {
     assertEquals(10, this.board.generateBoard(9).size());
     assertEquals(50, this.board.generateBoard(51).size());
   }
+
+  @Test
+  public void testGenerateBoardInOrder() {
+    ArrayList<ArrayList<Cell>> cells = this.board.generateBoard(10);
+
+    int rowIndex = 0;
+    for (ArrayList<Cell> row : cells) {
+      int columnIndex = 0;
+      for (Cell cell : row) {
+        int[] cellPosition = cell.getPosition();
+        if (columnIndex != cellPosition[0] && rowIndex != cellPosition[1]) {
+          fail("[!] Cells misaligned in board");
+        }
+        columnIndex += 1;
+      }
+      rowIndex += 1;
+    }
+  }
 }
 
