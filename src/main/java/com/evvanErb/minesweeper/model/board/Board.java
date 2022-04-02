@@ -85,18 +85,6 @@ public class Board {
         String boardString = "";
         for (ArrayList<Cell> row : this.cells) {
             for (Cell cell : row) {
-                if (cell.getIsMine()) {
-                    boardString += ("(" + cell.getNumMinesAdjacent() + "*)");
-                }
-                else {
-                    boardString += ("(" + cell.getNumMinesAdjacent() + ")");
-                }
-            }
-            boardString += "\n";
-        }
-        boardString += "\n";
-        for (ArrayList<Cell> row : this.cells) {
-            for (Cell cell : row) {
                 if (cell.getIsFlagged()) {
                     boardString += ("(F)");
                 }
@@ -110,6 +98,22 @@ public class Board {
             boardString += "\n";
         }
 
+        return boardString;
+    }
+
+    public String getBoardAsStringAllRevealed() {
+        String boardString = "";
+        for (ArrayList<Cell> row : this.cells) {
+            for (Cell cell : row) {
+                if (cell.getIsMine()) {
+                    boardString += ("(" + cell.getNumMinesAdjacent() + "*)");
+                }
+                else {
+                    boardString += ("(" + cell.getNumMinesAdjacent() + ")");
+                }
+            }
+            boardString += "\n";
+        }
         return boardString;
     }
 

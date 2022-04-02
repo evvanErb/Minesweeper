@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.evvanErb.minesweeper.model.board.BoardTest
 -------------------------------------------------------------------------------
-Tests run: 14, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.03 s <<< FAILURE! - in com.evvanErb.minesweeper.model.board.BoardTest
-testGenerateBoardInOrder(com.evvanErb.minesweeper.model.board.BoardTest)  Time elapsed: 0 s  <<< FAILURE!
-junit.framework.AssertionFailedError: [!] Cells misaligned in board
-	at com.evvanErb.minesweeper.model.board.BoardTest.testGenerateBoardInOrder(BoardTest.java:254)
-
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.035 s - in com.evvanErb.minesweeper.model.board.BoardTest

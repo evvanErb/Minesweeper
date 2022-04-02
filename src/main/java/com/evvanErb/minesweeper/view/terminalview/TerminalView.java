@@ -35,11 +35,16 @@ public class TerminalView {
 
                 String userInput = scanner.nextLine();
 
-                if (userInput == "quit") {
+                if (userInput.equals("quit")) {
                     this.gameRunning = false;
-                }
-                else if (userInput == "new game") {
                     this.currentGameRunning = false;
+                }
+                else if (userInput.equals("new game")) {
+                    this.currentGameRunning = false;
+                }
+                else if (userInput.charAt(0) == 'F') {
+                    String[] toFlagPoint = userInput.substring(1).split(",");
+                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
                 }
                 else {
                     String[] toRevealPoint = userInput.split(",");
