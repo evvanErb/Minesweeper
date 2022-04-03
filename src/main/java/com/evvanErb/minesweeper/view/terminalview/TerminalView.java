@@ -3,7 +3,6 @@ package com.evvanErb.minesweeper.view.terminalview;
 import com.evvanErb.minesweeper.model.board.GameStatus;
 import com.evvanErb.minesweeper.viewmodel.gamemanager.GameManager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TerminalView {
@@ -34,15 +33,16 @@ public class TerminalView {
                 System.out.print("Enter a command: ");
 
                 String userInput = scanner.nextLine();
+                userInput = userInput.toLowerCase();
 
-                if (userInput.equals("quit")) {
+                if (userInput.equals("quit") || userInput.equals("q")) {
                     this.gameRunning = false;
                     this.currentGameRunning = false;
                 }
-                else if (userInput.equals("new game")) {
+                else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
                     this.currentGameRunning = false;
                 }
-                else if (userInput.charAt(0) == 'F') {
+                else if (userInput.length() > 1 && userInput.charAt(0) == 'f') {
                     String[] toFlagPoint = userInput.substring(1).split(",");
                     this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
                 }
