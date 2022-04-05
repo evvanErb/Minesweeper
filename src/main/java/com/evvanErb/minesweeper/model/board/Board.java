@@ -128,7 +128,7 @@ public class Board {
         for (ArrayList<Cell> row : this.cells) {
             for (Cell cell : row) {
                 if (cell.getIsMine()) {
-                    boardString += ("(" + cell.getNumMinesAdjacent() + "*)");
+                    boardString += ("(*)");
                 }
                 else {
                     boardString += ("(" + cell.getNumMinesAdjacent() + ")");

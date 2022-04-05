@@ -18,17 +18,17 @@ public class BoardCellTest {
 
   }
 
-  private Board buildBoard() {
+  private Board buildBoard(int size) {
 
     Board board = new Board();
 
     ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>();
 
-    for(int row = 0; row < 10; row++) {
+    for(int row = 0; row < size; row++) {
 
         ArrayList<Cell> currentRow = new ArrayList<Cell>();
 
-        for(int column = 0; column < 10; column++) {
+        for(int column = 0; column < size; column++) {
 
             //make diagnols mines for testing
             boolean isMine = false;
@@ -53,14 +53,14 @@ public class BoardCellTest {
         cells.add(currentRow);
     }
 
-    board.setBoard(cells, 10);
+    board.setBoard(cells, size);
 
     return board;
   }
   
   @Test
   public void testRevealNonMine() {
-    Board board = this.buildBoard();
+    Board board = this.buildBoard(10);
 
     board.reveal(7, 2);
     ArrayList<ArrayList<Cell>> cells = board.getBoard();
@@ -125,7 +125,7 @@ public class BoardCellTest {
 
   @Test
   public void testRevealMine() {
-    Board board = this.buildBoard();
+    Board board = this.buildBoard(10);
 
     board.reveal(7,7);
     ArrayList<ArrayList<Cell>> cells = board.getBoard();
@@ -151,7 +151,7 @@ public class BoardCellTest {
 
   @Test
   public void testRevealBadPoint() {
-    Board board = this.buildBoard();
+    Board board = this.buildBoard(10);
 
     board.reveal(-1,7);
     board.reveal(7, 11);
@@ -169,7 +169,7 @@ public class BoardCellTest {
 
   @Test
   public void testChangeFlag() {
-    Board board = this.buildBoard();
+    Board board = this.buildBoard(10);
 
     board.changeFlag(7,7);
     board.changeFlag(2,8);
@@ -211,7 +211,7 @@ public class BoardCellTest {
 
   @Test
   public void testChangeFlagBadPoint() {
-    Board board = this.buildBoard();
+    Board board = this.buildBoard(10);
 
     board.changeFlag(-1,7);
     board.changeFlag(7, 11);
@@ -229,7 +229,7 @@ public class BoardCellTest {
 
     @Test
     public void testGameStausVictory() {
-        Board board = this.buildBoard();
+        Board board = this.buildBoard(10);
 
         board.reveal(2, 7);
         board.reveal(1, 0);
@@ -243,12 +243,29 @@ public class BoardCellTest {
 
     @Test
     public void testGameStausLost() {
-        Board board = this.buildBoard();
+        Board board = this.buildBoard(10);
 
         board.reveal(2, 7);
         board.reveal(1, 0);
         assertEquals(GameStatus.RUNNING, board.checkForVictory());
         board.reveal(7, 7);
         assertEquals(GameStatus.LOST, board.checkForVictory());
+    }
+
+    @Test
+    public void testBoardAsString() {
+        Board board = this.buildBoard(3);
+
+        assertEquals("(X)(X)(X)\n(X)(X)(X)\n(X)(X)(X)\n", board.getBoardAsString());
+        board.reveal(1,0);
+        assertEquals("(X)(2)(X)\n(X)(X)(X)\n(X)(X)(X)\n", board.getBoardAsString());
+        board.reveal(1, 1);
+        assertEquals("(X)(2)(X)\n(X)(*)(X)\n(X)(X)(X)\n", board.getBoardAsString());
+    }
+
+    @Test
+    public void testBoardAsStringAllRevealed() {
+        Board board = this.buildBoard(3);
+        assertEquals("(*)(2)(1)\n(2)(*)(2)\n(1)(2)(*)\n", board.getBoardAsStringAllRevealed());
     }
 }
