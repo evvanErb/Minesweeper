@@ -107,6 +107,9 @@ public class Board {
                 if (cell.getIsFlagged()) {
                     boardString += ("(F)");
                 }
+                else if (cell.getIsRevealed() && cell.getIsMine()) {
+                    boardString += ("(*)");
+                }
                 else if (cell.getIsRevealed()) {
                     boardString += ("(" + cell.getNumMinesAdjacent() + ")");
                 }
@@ -242,7 +245,7 @@ public class Board {
         
         if (exisitingCoords == null || exisitingCoords.size() >= size*size || size <= 0) { return null; }
 
-        Random r = new Random();
+        Random r = new Random(System.currentTimeMillis());
         boolean alreadyExists;
         int[] newCoord;
 

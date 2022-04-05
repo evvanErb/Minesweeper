@@ -19,12 +19,9 @@ public class TerminalView {
         this.currentGameRunning = true;
         this.currentGame = new GameManager();
 
-        int boardSize = this.getDesiredBoardSize();
-        this.currentGame.startGame(boardSize);
-
         while (this.gameRunning) {
 
-            boardSize = this.getDesiredBoardSize();
+            int boardSize = this.getDesiredBoardSize();
             this.currentGame.startGame(boardSize);
             this.currentGameRunning = true;
 
@@ -71,6 +68,18 @@ public class TerminalView {
     }
 
     protected int getDesiredBoardSize() {
-        return 10;
+
+        boolean gotInteger = false;
+        int size = 0;
+
+        do {
+            try {
+                System.out.print("Enter a board size: ");
+                size = Integer.parseInt(this.scanner.nextLine());
+                gotInteger = true;
+            } catch (NumberFormatException error) { System.out.println("[!] Please enter a number"); }
+        } while(! gotInteger);
+
+        return size;
     }
 }
