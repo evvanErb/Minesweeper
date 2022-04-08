@@ -10,8 +10,8 @@ public class Board {
     private ArrayList<ArrayList<Cell>> cells;
     private ArrayList<Cell> nonMineCells;
     private int size;
-    private int MIN_BOARD_SIZE = 10;
-    private int MAX_BOARD_SIZE = 50;
+    protected int MIN_BOARD_SIZE = 10;
+    protected int MAX_BOARD_SIZE = 50;
     private GameStatus gameStatus;
 
     public Board() { this.gameStatus = GameStatus.RUNNING; }
