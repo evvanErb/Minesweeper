@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class JavaFXView extends Application {
@@ -72,7 +73,7 @@ public class JavaFXView extends Application {
                         currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: red;");
                         break;
                     case "F":
-                        currentCellView.setStyle("-fx-background-color: grey; -fx-text-fill: red;");
+                        currentCellView.setStyle("-fx-background-color: lightsteelblue; -fx-text-fill: red;");
                         break;
                     case "X":
                         currentCellView.setText(" ");
@@ -165,14 +166,20 @@ public class JavaFXView extends Application {
 
     private void buildControls(GridPane controlView, GridPane boardView) {
 
-        Button newGameButton = new Button("NewGame");
-        newGameButton.setOnMouseClicked(event -> {
-            this.game.startGame(this.size);
-            this.drawInitBoardView(boardView);
-        });
-
         this.boardSizeInput = new TextField();
         this.boardSizeInput.appendText("25");
+
+        Button newGameButton = new Button("NewGame");
+        newGameButton.setOnMouseClicked(event -> {
+            boardView.getChildren().clear();
+            int sizeEntered = 25;
+            try {
+                sizeEntered = Integer.parseInt(this.boardSizeInput.getText());
+            } catch (NumberFormatException e) { System.out.println(e.getMessage()); }
+            this.game.startGame(sizeEntered);
+            this.size = this.game.getBoardSize();
+            this.drawInitBoardView(boardView);
+        });
 
         controlView.add(newGameButton, (this.size * 12 / 2), 0);
         controlView.add(this.boardSizeInput, (this.size * 9), 0);

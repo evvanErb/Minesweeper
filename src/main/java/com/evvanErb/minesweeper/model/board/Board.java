@@ -289,4 +289,6 @@ public class Board {
 
         return newCoord;
     }
+
+    public int getBoardSize() { return this.size; }
 }

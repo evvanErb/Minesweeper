@@ -34,6 +34,8 @@ public class GameManager {
         return this.currentBoard;
     }
 
+    public int getBoardSize() { return this.currentBoard.getBoardSize(); }
+
     public String getBoardAsAPI() {
         return this.currentBoard.getBoardAsAPI();
     }
