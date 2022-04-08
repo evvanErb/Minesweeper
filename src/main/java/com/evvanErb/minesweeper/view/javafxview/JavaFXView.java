@@ -6,7 +6,9 @@ import com.evvanErb.minesweeper.viewmodel.gamemanager.GameManager;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
@@ -15,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class JavaFXView extends Application {
@@ -25,6 +25,7 @@ public class JavaFXView extends Application {
     private TextField boardSizeInput;
     private GameManager game;
     private ArrayList<ArrayList<Button>> cellsView;
+    private Label gameStatusLabel;
 
     @Override
     public void start(Stage stage) {
@@ -112,6 +113,39 @@ public class JavaFXView extends Application {
         }
     }
 
+    private void reveal(MouseEvent event, int rowSaved, int columnSaved) {
+        if (this.game.getGameStatus() != GameStatus.RUNNING) {
+            return;
+        }
+
+        if(event.getButton() == MouseButton.PRIMARY) {
+
+            GameStatus resultingStatusAfterReveal = null;
+            try {
+                resultingStatusAfterReveal = this.game.revealCell(columnSaved, rowSaved);
+
+                if (resultingStatusAfterReveal == GameStatus.LOST) {
+                    this.gameStatusLabel.setText("YOU LOST!");
+                    this.gameStatusLabel.setStyle("-fx-text-fill: red;");
+                }
+                else if (resultingStatusAfterReveal == GameStatus.VICTORY) {
+                    this.gameStatusLabel.setText("YOU WON!");
+                    this.gameStatusLabel.setStyle("-fx-text-fill: green;");
+                }
+
+                this.updateBoardView();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        else {
+            this.game.changeCellFlag(columnSaved, rowSaved);
+            this.updateBoardView();
+        }
+    }
+
     private void drawInitBoardView(GridPane boardView) {
 
         this.cellsView = new ArrayList<ArrayList<Button>>();
@@ -124,25 +158,7 @@ public class JavaFXView extends Application {
                 final int rowSaved = row;
                 final int columnSaved = column;
 
-                cell.setOnMouseClicked(event -> {
-
-                    if(event.getButton() == MouseButton.PRIMARY) {
-
-                        GameStatus resultingStatusAfterReveal = null;
-                        try {
-                            resultingStatusAfterReveal = this.game.revealCell(columnSaved, rowSaved);
-                            this.updateBoardView();
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    else {
-                        this.game.changeCellFlag(columnSaved, rowSaved);
-                        this.updateBoardView();
-                    }
-                });
+                cell.setOnMouseClicked(event -> { this.reveal(event, rowSaved, columnSaved); });
 
                 cell.setStyle("-fx-background-color: grey; -fx-text-fill: white;");
                 boardView.add(cell, column, row);
@@ -169,18 +185,27 @@ public class JavaFXView extends Application {
         this.boardSizeInput = new TextField();
         this.boardSizeInput.appendText("25");
 
-        Button newGameButton = new Button("NewGame");
+        this.gameStatusLabel = new Label("");
+        this.gameStatusLabel.setMinWidth(100);
+
+        Button newGameButton = new Button("New Game");
+        newGameButton.setMinWidth(100);
         newGameButton.setOnMouseClicked(event -> {
+
             boardView.getChildren().clear();
+            this.gameStatusLabel.setText("");
+
             int sizeEntered = 25;
             try {
                 sizeEntered = Integer.parseInt(this.boardSizeInput.getText());
             } catch (NumberFormatException e) { System.out.println(e.getMessage()); }
+
             this.game.startGame(sizeEntered);
             this.size = this.game.getBoardSize();
             this.drawInitBoardView(boardView);
         });
 
+        controlView.add(this.gameStatusLabel, (this.size * 9 / 2), 0);
         controlView.add(newGameButton, (this.size * 12 / 2), 0);
         controlView.add(this.boardSizeInput, (this.size * 9), 0);
 
