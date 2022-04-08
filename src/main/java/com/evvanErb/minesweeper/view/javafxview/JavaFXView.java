@@ -5,7 +5,6 @@ import com.evvanErb.minesweeper.viewmodel.gamemanager.GameManager;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -79,11 +78,11 @@ public class JavaFXView extends Application {
                         currentCellView.setStyle("-fx-background-color: lightsteelblue; -fx-text-fill: red;");
                         break;
                     case "X":
-                        currentCellView.setText(" ");
+                        currentCellView.setText("  ");
                         currentCellView.setStyle("-fx-background-color: grey; -fx-text-fill: white;");
                         break;
                     case "0":
-                        currentCellView.setText(" ");
+                        currentCellView.setText("  ");
                         currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: black;");
                         break;
                 }
@@ -95,7 +94,7 @@ public class JavaFXView extends Application {
 
         if (this.game.getGameStatus() != GameStatus.RUNNING) { return; }
 
-        if(event.getButton() == MouseButton.PRIMARY) {
+        if (event.getButton() == MouseButton.PRIMARY) {
 
             GameStatus resultingStatusAfterReveal = null;
             try {
@@ -112,9 +111,7 @@ public class JavaFXView extends Application {
 
                 this.updateBoardView();
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            } catch (InterruptedException e) { e.printStackTrace(); }
         }
 
         else {
@@ -131,7 +128,7 @@ public class JavaFXView extends Application {
             this.cellsView.add(new ArrayList<Button>());
             for(int column = 0; column < this.size; column++) {
 
-                Button cell = new Button(" ");
+                Button cell = new Button("  ");
                 final int rowSaved = row;
                 final int columnSaved = column;
 
@@ -157,6 +154,21 @@ public class JavaFXView extends Application {
         return newGridPane;
     }
 
+    private void newGame(MouseEvent event, GridPane boardView) {
+
+        boardView.getChildren().clear();
+        this.gameStatusLabel.setText("");
+
+        int sizeEntered = 25;
+        try {
+            sizeEntered = Integer.parseInt(this.boardSizeInput.getText());
+        } catch (NumberFormatException e) { System.out.println(e.getMessage()); }
+
+        this.game.startGame(sizeEntered);
+        this.size = this.game.getBoardSize();
+        this.drawInitBoardView(boardView);
+    }
+
     private void buildControls(GridPane controlView, GridPane boardView) {
 
         this.boardSizeInput = new TextField();
@@ -167,26 +179,12 @@ public class JavaFXView extends Application {
 
         Button newGameButton = new Button("New Game");
         newGameButton.setMinWidth(100);
-        newGameButton.setOnMouseClicked(event -> {
-
-            boardView.getChildren().clear();
-            this.gameStatusLabel.setText("");
-
-            int sizeEntered = 25;
-            try {
-                sizeEntered = Integer.parseInt(this.boardSizeInput.getText());
-            } catch (NumberFormatException e) { System.out.println(e.getMessage()); }
-
-            this.game.startGame(sizeEntered);
-            this.size = this.game.getBoardSize();
-            this.drawInitBoardView(boardView);
-        });
+        newGameButton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+        newGameButton.setOnMouseClicked(event -> { this.newGame(event, boardView); });
 
         controlView.add(this.gameStatusLabel, (this.size * 2), 0);
         controlView.add(newGameButton, (this.size * 3), 0);
         controlView.add(this.boardSizeInput, (this.size * 5), 0);
-
-        newGameButton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
     }
 
     public static void main(String[] args) {
