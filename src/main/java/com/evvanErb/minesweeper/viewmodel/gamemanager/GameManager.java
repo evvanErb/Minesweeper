@@ -33,4 +33,8 @@ public class GameManager {
     public Board getCurrentBoard() {
         return this.currentBoard;
     }
+
+    public String getBoardAsAPI() {
+        return this.currentBoard.getBoardAsAPI();
+    }
 }

@@ -123,6 +123,31 @@ public class Board {
         return boardString;
     }
 
+    public String getBoardAsAPI() {
+        String boardAPIString = "";
+        for (ArrayList<Cell> row : this.cells) {
+            for (Cell cell : row) {
+                if (cell.getIsFlagged()) {
+                    boardAPIString += ("F,");
+                }
+                else if (cell.getIsRevealed() && cell.getIsMine()) {
+                    boardAPIString += ("*,");
+                }
+                else if (cell.getIsRevealed()) {
+                    boardAPIString += cell.getNumMinesAdjacent() + ",";
+                }
+                else {
+                    boardAPIString += ("X,");
+                }
+            }
+            boardAPIString = boardAPIString.substring(0, boardAPIString.length() - 1);
+            boardAPIString += "\n";
+        }
+        boardAPIString = boardAPIString.substring(0, boardAPIString.length() - 1);
+
+        return boardAPIString;
+    }
+
     public String getBoardAsStringAllRevealed() {
         String boardString = "";
         for (ArrayList<Cell> row : this.cells) {
