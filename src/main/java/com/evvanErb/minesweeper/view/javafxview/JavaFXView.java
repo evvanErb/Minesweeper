@@ -126,11 +126,11 @@ public class JavaFXView extends Application {
 
                 if (resultingStatusAfterReveal == GameStatus.LOST) {
                     this.gameStatusLabel.setText("YOU LOST!");
-                    this.gameStatusLabel.setStyle("-fx-text-fill: red;");
+                    this.gameStatusLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
                 }
                 else if (resultingStatusAfterReveal == GameStatus.VICTORY) {
                     this.gameStatusLabel.setText("YOU WON!");
-                    this.gameStatusLabel.setStyle("-fx-text-fill: green;");
+                    this.gameStatusLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
                 }
 
                 this.updateBoardView();
@@ -205,9 +205,9 @@ public class JavaFXView extends Application {
             this.drawInitBoardView(boardView);
         });
 
-        controlView.add(this.gameStatusLabel, (this.size * 9 / 2), 0);
-        controlView.add(newGameButton, (this.size * 12 / 2), 0);
-        controlView.add(this.boardSizeInput, (this.size * 9), 0);
+        controlView.add(this.gameStatusLabel, (this.size * 2), 0);
+        controlView.add(newGameButton, (this.size * 3), 0);
+        controlView.add(this.boardSizeInput, (this.size * 5), 0);
 
         newGameButton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
     }
