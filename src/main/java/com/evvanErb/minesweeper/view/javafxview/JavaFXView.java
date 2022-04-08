@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JavaFXView extends Application {
 
@@ -26,6 +27,9 @@ public class JavaFXView extends Application {
     private GameManager game;
     private ArrayList<ArrayList<Button>> cellsView;
     private Label gameStatusLabel;
+    private HashMap<String, String> numMinesColors = new HashMap<String, String>() {{
+        put("*", "red");put("1", "black"); put("2", "teal");put("3", "lime");put("4", "green");put("5", "blue");put("6", "slateblue");put("7", "pink");put("8", "purple");
+    }};
 
     @Override
     public void start(Stage stage) {
@@ -69,10 +73,8 @@ public class JavaFXView extends Application {
 
                 Button currentCellView = this.cellsView.get(row).get(column);
                 currentCellView.setText((thisRow[column]));
+                currentCellView.setStyle(String.format("-fx-background-color: white; -fx-text-fill: %s;", this.numMinesColors.get(thisRow[column])));
                 switch(thisRow[column]) {
-                    case "*":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: red;");
-                        break;
                     case "F":
                         currentCellView.setStyle("-fx-background-color: lightsteelblue; -fx-text-fill: red;");
                         break;
@@ -80,31 +82,7 @@ public class JavaFXView extends Application {
                         currentCellView.setText(" ");
                         currentCellView.setStyle("-fx-background-color: grey; -fx-text-fill: white;");
                         break;
-                    case "1":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-                        break;
-                    case "2":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: teal;");
-                        break;
-                    case "3":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: lime;");
-                        break;
-                    case "4":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: green;");
-                        break;
-                    case "5":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: blue;");
-                        break;
-                    case "6":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: slateblue;");
-                        break;
-                    case "7":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: pink;");
-                        break;
-                    case "8":
-                        currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: purple;");
-                        break;
-                    default:
+                    case "0":
                         currentCellView.setText(" ");
                         currentCellView.setStyle("-fx-background-color: white; -fx-text-fill: black;");
                         break;
@@ -114,9 +92,8 @@ public class JavaFXView extends Application {
     }
 
     private void reveal(MouseEvent event, int rowSaved, int columnSaved) {
-        if (this.game.getGameStatus() != GameStatus.RUNNING) {
-            return;
-        }
+
+        if (this.game.getGameStatus() != GameStatus.RUNNING) { return; }
 
         if(event.getButton() == MouseButton.PRIMARY) {
 
