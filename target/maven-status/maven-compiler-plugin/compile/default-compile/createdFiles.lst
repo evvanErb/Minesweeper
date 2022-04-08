@@ -2,6 +2,6 @@ com/evvanErb/minesweeper/viewmodel/gamemanager/GameManager.class
 com/evvanErb/minesweeper/Main.class
 com/evvanErb/minesweeper/model/cell/Cell.class
 com/evvanErb/minesweeper/view/terminalview/TerminalView.class
+com/evvanErb/minesweeper/view/javafxview/JavaFXView.class
 com/evvanErb/minesweeper/model/board/GameStatus.class
 com/evvanErb/minesweeper/model/board/Board.class
-JavaFXView.class
