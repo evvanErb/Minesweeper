@@ -22,7 +22,6 @@ public class GameManager {
 
     public GameStatus revealCell(int xPositionToReveal, int yPositionToReveal) throws InterruptedException {
         this.currentBoard.reveal(xPositionToReveal, yPositionToReveal);
-        Thread.sleep(500);
         return this.currentBoard.checkForVictory();
     }
 
