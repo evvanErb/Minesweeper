@@ -268,4 +268,21 @@ public class BoardCellTest {
         Board board = this.buildBoard(3);
         assertEquals("(*)(2)(1)\n(2)(*)(2)\n(1)(2)(*)\n", board.getBoardAsStringAllRevealed());
     }
+
+    @Test
+    public void testBoardAsAPI() {
+        Board board = this.buildBoard(3);
+
+        assertEquals("X,X,X\nX,X,X\nX,X,X", board.getBoardAsAPI());
+        board.reveal(1,0);
+        assertEquals("X,2,X\nX,X,X\nX,X,X", board.getBoardAsAPI());
+        board.reveal(1, 1);
+        assertEquals("X,2,X\nX,*,X\nX,X,X", board.getBoardAsAPI());
+    }
+
+    @Test
+    public void testBoardASAPIAllRevealed() {
+        Board board = this.buildBoard(3);
+        assertEquals("*,2,1\n2,*,2\n1,2,*", board.getBoardAsAPIAllRevealed());
+    }
 }

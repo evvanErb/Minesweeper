@@ -13,7 +13,10 @@ public class GameManagerTest {
     }
 
     @Test
-    public void testRevealNonMine() {
+    public void testInitialGameConditions() {
+        GameManager game = new GameManager();
 
+        game.startGame(12);
+        assertEquals(12, game.getBoardSize());
     }
 }

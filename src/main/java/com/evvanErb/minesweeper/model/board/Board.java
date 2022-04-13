@@ -148,6 +148,28 @@ public class Board {
         return boardAPIString;
     }
 
+    public String getBoardAsAPIAllRevealed() {
+        String boardAPIString = "";
+        for (ArrayList<Cell> row : this.cells) {
+            for (Cell cell : row) {
+                if (cell.getIsFlagged()) {
+                    boardAPIString += ("F,");
+                }
+                else if (cell.getIsMine()) {
+                    boardAPIString += ("*,");
+                }
+                else {
+                    boardAPIString += cell.getNumMinesAdjacent() + ",";
+                }
+            }
+            boardAPIString = boardAPIString.substring(0, boardAPIString.length() - 1);
+            boardAPIString += "\n";
+        }
+        boardAPIString = boardAPIString.substring(0, boardAPIString.length() - 1);
+
+        return boardAPIString;
+    }
+
     public String getBoardAsStringAllRevealed() {
         String boardString = "";
         for (ArrayList<Cell> row : this.cells) {
