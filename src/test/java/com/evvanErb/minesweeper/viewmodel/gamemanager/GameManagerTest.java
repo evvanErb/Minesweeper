@@ -11,12 +11,4 @@ public class GameManagerTest {
     public void setUp() throws Exception {
 
     }
-
-    @Test
-    public void testInitialGameConditions() {
-        GameManager game = new GameManager();
-
-        game.startGame(12);
-        assertEquals(12, game.getBoardSize());
-    }
 }
