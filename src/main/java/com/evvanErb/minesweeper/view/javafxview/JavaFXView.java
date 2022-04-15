@@ -97,21 +97,18 @@ public class JavaFXView extends Application {
         if (event.getButton() == MouseButton.PRIMARY) {
 
             GameStatus resultingStatusAfterReveal = null;
-            try {
-                resultingStatusAfterReveal = this.game.revealCell(columnSaved, rowSaved);
+            resultingStatusAfterReveal = this.game.revealCell(columnSaved, rowSaved);
 
-                if (resultingStatusAfterReveal == GameStatus.LOST) {
-                    this.gameStatusLabel.setText("YOU LOST!");
-                    this.gameStatusLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
-                }
-                else if (resultingStatusAfterReveal == GameStatus.VICTORY) {
-                    this.gameStatusLabel.setText("YOU WON!");
-                    this.gameStatusLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
-                }
+            if (resultingStatusAfterReveal == GameStatus.LOST) {
+                this.gameStatusLabel.setText("YOU LOST!");
+                this.gameStatusLabel.setStyle("-fx-text-fill: red; -fx-font-weight: bold");
+            }
+            else if (resultingStatusAfterReveal == GameStatus.VICTORY) {
+                this.gameStatusLabel.setText("YOU WON!");
+                this.gameStatusLabel.setStyle("-fx-text-fill: green; -fx-font-weight: bold");
+            }
 
-                this.updateBoardView();
-
-            } catch (InterruptedException e) { e.printStackTrace(); }
+            this.updateBoardView();
         }
 
         else {

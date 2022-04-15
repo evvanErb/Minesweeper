@@ -47,11 +47,7 @@ public class TerminalView {
                     String[] toRevealPoint = userInput.split(",");
 
                     GameStatus resultingStatusAfterReveal = null;
-                    try {
-                        resultingStatusAfterReveal = this.currentGame.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    resultingStatusAfterReveal = this.currentGame.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));
 
                     if (resultingStatusAfterReveal == GameStatus.VICTORY) {
                         System.out.println("YOU WON!");

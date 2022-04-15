@@ -20,7 +20,7 @@ public class GameManager {
         return this.currentBoard.getBoardAsString();
     }
 
-    public GameStatus revealCell(int xPositionToReveal, int yPositionToReveal) throws InterruptedException {
+    public GameStatus revealCell(int xPositionToReveal, int yPositionToReveal) {
         this.currentBoard.reveal(xPositionToReveal, yPositionToReveal);
         return this.currentBoard.checkForVictory();
     }
