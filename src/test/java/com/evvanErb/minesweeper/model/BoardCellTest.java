@@ -261,6 +261,8 @@ public class BoardCellTest {
         assertEquals("(X)(2)(X)\n(X)(X)(X)\n(X)(X)(X)\n", board.getBoardAsString());
         board.reveal(1, 1);
         assertEquals("(X)(2)(X)\n(X)(*)(X)\n(X)(X)(X)\n", board.getBoardAsString());
+        board.changeFlag(2,2);
+        assertEquals("(X)(2)(X)\n(X)(*)(X)\n(X)(X)(F)\n", board.getBoardAsString());
     }
 
     @Test
@@ -278,11 +280,23 @@ public class BoardCellTest {
         assertEquals("X,2,X\nX,X,X\nX,X,X", board.getBoardAsAPI());
         board.reveal(1, 1);
         assertEquals("X,2,X\nX,*,X\nX,X,X", board.getBoardAsAPI());
+        board.changeFlag(2,2);
+        assertEquals("X,2,X\nX,*,X\nX,X,F", board.getBoardAsAPI());
     }
 
     @Test
     public void testBoardASAPIAllRevealed() {
         Board board = this.buildBoard(3);
         assertEquals("*,2,1\n2,*,2\n1,2,*", board.getBoardAsAPIAllRevealed());
+        board.changeFlag(2, 2);
+        assertEquals("*,2,1\n2,*,2\n1,2,F", board.getBoardAsAPIAllRevealed());
+    }
+
+    @Test
+    public void testBoardGetSize() {
+        Board board = this.buildBoard(3);
+        assertEquals(3, board.getBoardSize());
+        board = new Board(15);
+        assertEquals(15, board.getBoardSize());
     }
 }
