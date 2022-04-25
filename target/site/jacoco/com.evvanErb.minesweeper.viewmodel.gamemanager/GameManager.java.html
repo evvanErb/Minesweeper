@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Minesweeper</a> &gt; <a href="index.source.html" class="el_package">com.evvanErb.minesweeper.viewmodel.gamemanager</a> &gt; <span class="el_source">GameManager.java</span></div><h1>GameManager.java</h1><pre class="source lang-java linenums">package com.evvanErb.minesweeper.viewmodel.gamemanager;
+
+import com.evvanErb.minesweeper.model.board.*;
+
+public class GameManager {
+
+    private Board currentBoard;
+
+<span class="fc" id="L9">    public GameManager() {    }</span>
+
+<span class="fc" id="L11">    public GameManager(Board starterBoard) {</span>
+<span class="fc" id="L12">        this.currentBoard = starterBoard;</span>
+<span class="fc" id="L13">    }</span>
+
+    public void startGame(int size) {
+<span class="fc" id="L16">        this.currentBoard = new Board(size);</span>
+<span class="fc" id="L17">    }</span>
+
+    public String getBoardAsString() {
+<span class="fc" id="L20">        return this.currentBoard.getBoardAsString();</span>
+    }
+
+    public GameStatus revealCell(int xPositionToReveal, int yPositionToReveal) {
+<span class="fc" id="L24">        this.currentBoard.reveal(xPositionToReveal, yPositionToReveal);</span>
+<span class="fc" id="L25">        return this.currentBoard.checkForVictory();</span>
+    }
+
+    public void changeCellFlag(int xPositionToFlag, int yPositionToFlag) {
+<span class="fc" id="L29">        this.currentBoard.changeFlag(xPositionToFlag, yPositionToFlag);</span>
+<span class="fc" id="L30">    }</span>
+
+    public Board getCurrentBoard() {
+<span class="fc" id="L33">        return this.currentBoard;</span>
+    }
+
+<span class="fc" id="L36">    public int getBoardSize() { return this.currentBoard.getBoardSize(); }</span>
+
+<span class="fc" id="L38">    public GameStatus getGameStatus() { return this.currentBoard.checkForVictory(); }</span>
+
+    public String getBoardAsAPI() {
+<span class="fc" id="L41">        return this.currentBoard.getBoardAsAPI();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

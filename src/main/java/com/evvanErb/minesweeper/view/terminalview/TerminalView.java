@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TerminalView {
 
@@ -34,18 +36,11 @@ public class TerminalView {
                 String userInput = scanner.nextLine();
                 userInput = userInput.toLowerCase();
 
-                if (userInput.equals("quit") || userInput.equals("q")) {
-                    this.gameRunning = false;
-                    this.currentGameRunning = false;
-                }
-                else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
-                    this.currentGameRunning = false;
-                }
-                else if (userInput.length() > 1 && userInput.charAt(0) == 'f') {
-                    String[] toFlagPoint = userInput.substring(1).split(",");
-                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
-                }
-                else {
+                Pattern pattern = Pattern.compile("[0-9]+,[0-9]+", Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(userInput);
+                boolean matchFound = matcher.find();
+
+                if (matchFound) {
                     String[] toRevealPoint = userInput.split(",");
 
                     GameStatus resultingStatusAfterReveal = null;
@@ -60,6 +55,31 @@ public class TerminalView {
                         System.out.println("YOU LOST!");
                         this.currentGameRunning = false;
                     }
+                }
+                else if (userInput.equals("help") || userInput.equals("h")) {
+                    System.out.println(
+                            """
+                            To Quit: "quit" or "q"
+                            For New Game: "new game" or "new" or "n"
+                            To Flag a Point: "FX,Y"
+                            To Reveal a Point: "X,Y"
+                            To Print this Menu: "help" or "h"
+                            """
+                    );
+                }
+                else if (userInput.equals("quit") || userInput.equals("q")) {
+                    this.gameRunning = false;
+                    this.currentGameRunning = false;
+                }
+                else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
+                    this.currentGameRunning = false;
+                }
+                else if (userInput.length() > 1 && userInput.charAt(0) == 'f') {
+                    String[] toFlagPoint = userInput.substring(1).split(",");
+                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
+                }
+                else {
+                    System.out.println("[!] Unknown Command: type \"help\" for list of commands");
                 }
             }
         }
