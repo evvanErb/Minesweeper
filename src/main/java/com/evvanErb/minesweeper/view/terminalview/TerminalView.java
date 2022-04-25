@@ -36,7 +36,8 @@ public class TerminalView {
                     currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
                 }
                 else if (this.regexMatch(userInput, "^[0-9]+,[0-9]+$")) {
-                    currentGameRunning = this.revealCell(userInput, currentGame, System.out);
+                    String[] toRevealPoint = userInput.split(",");
+                    currentGameRunning = this.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]), currentGame, System.out);
                 }
                 else if (userInput.equals("help") || userInput.equals("h")) {
                     System.out.println(
@@ -63,10 +64,8 @@ public class TerminalView {
         }
     }
 
-    protected boolean revealCell(String userInput, GameManager game, OutputStream outputStream) throws IOException {
-        String[] toRevealPoint = userInput.split(",");
-
-        GameStatus resultingStatusAfterReveal = game.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));
+    protected boolean revealCell(int xPos, int yPos, GameManager game, OutputStream outputStream) throws IOException {
+        GameStatus resultingStatusAfterReveal = game.revealCell(xPos, yPos);
 
         if (resultingStatusAfterReveal == GameStatus.VICTORY) {
             outputStream.write("YOU WON!\n".getBytes());
