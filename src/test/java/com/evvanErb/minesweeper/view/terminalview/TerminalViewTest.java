@@ -36,4 +36,31 @@ public class TerminalViewTest {
         in = new ByteArrayInputStream(input.getBytes());
         assertEquals(-15, terminalView.getDesiredBoardSize(in, out));
     }
+
+    @Test
+    public void testRegexMatch() {
+        TerminalView terminalView = new TerminalView();
+
+        assertEquals(true, terminalView.regexMatch("0,0", "^[0-9]+,[0-9]+$"));
+        assertEquals(true, terminalView.regexMatch("01,0", "^[0-9]+,[0-9]+$"));
+
+        assertEquals(false, terminalView.regexMatch("0,0a", "^[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("0,", "^[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch(",0", "^[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("0a,0", "^[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("-1,0", "^[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("0", "^[0-9]+,[0-9]+$"));
+
+        assertEquals(true, terminalView.regexMatch("f0,0", "^f[0-9]+,[0-9]+$"));
+        assertEquals(true, terminalView.regexMatch("f01,0", "^f[0-9]+,[0-9]+$"));
+
+        assertEquals(false, terminalView.regexMatch("0,0", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("f 01,0", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("0,0f", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("f0,", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("f,0", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("0f,0", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("f-1,0", "^f[0-9]+,[0-9]+$"));
+        assertEquals(false, terminalView.regexMatch("f0", "^f[0-9]+,[0-9]+$"));
+    }
 }

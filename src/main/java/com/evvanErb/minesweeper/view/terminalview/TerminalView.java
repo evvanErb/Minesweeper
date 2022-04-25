@@ -12,57 +12,31 @@ import java.util.regex.Pattern;
 
 public class TerminalView {
 
-    GameManager currentGame;
-    boolean gameRunning;
-    boolean currentGameRunning;
-
     public void main() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        this.gameRunning = true;
-        this.currentGameRunning = true;
-        this.currentGame = new GameManager();
+        boolean gameRunning = true;
+        GameManager currentGame = new GameManager();
 
-        while (this.gameRunning) {
+        while (gameRunning) {
 
             int boardSize = this.getDesiredBoardSize(System.in, System.out);
-            this.currentGame.startGame(boardSize);
-            this.currentGameRunning = true;
+            currentGame.startGame(boardSize);
+            boolean currentGameRunning = true;
 
-            while (this.currentGameRunning) {
-                System.out.println(this.currentGame.getBoardAsString());
+            while (currentGameRunning) {
+
+                System.out.println(currentGame.getBoardAsString());
                 System.out.print("Enter a command: ");
-
                 String userInput = scanner.nextLine();
                 userInput = userInput.toLowerCase();
 
-                Pattern revealPattern = Pattern.compile("^[0-9]+,[0-9]+$", Pattern.CASE_INSENSITIVE);
-                Matcher revealMatcher = revealPattern.matcher(userInput);
-                boolean revealMatchFound = revealMatcher.find();
-
-                Pattern flagPattern = Pattern.compile("^f[0-9]+,[0-9]+$", Pattern.CASE_INSENSITIVE);
-                Matcher flagMatcher = flagPattern.matcher(userInput);
-                boolean flagMatchFound = flagMatcher.find();
-
-                if (flagMatchFound) {
+                if (this.regexMatch(userInput, "^f[0-9]+,[0-9]+$")) {
                     String[] toFlagPoint = userInput.substring(1).split(",");
-                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
+                    currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
                 }
-                else if (revealMatchFound) {
-                    String[] toRevealPoint = userInput.split(",");
-
-                    GameStatus resultingStatusAfterReveal = null;
-                    resultingStatusAfterReveal = this.currentGame.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));
-
-                    if (resultingStatusAfterReveal == GameStatus.VICTORY) {
-                        System.out.println("YOU WON!");
-                        this.currentGameRunning = false;
-                    }
-                    else if (resultingStatusAfterReveal == GameStatus.LOST) {
-                        System.out.println(this.currentGame.getBoardAsString());
-                        System.out.println("YOU LOST!");
-                        this.currentGameRunning = false;
-                    }
+                else if (this.regexMatch(userInput, "^[0-9]+,[0-9]+$")) {
+                    currentGameRunning = this.revealCell(userInput, currentGame, System.out);
                 }
                 else if (userInput.equals("help") || userInput.equals("h")) {
                     System.out.println(
@@ -76,17 +50,41 @@ public class TerminalView {
                     );
                 }
                 else if (userInput.equals("quit") || userInput.equals("q")) {
-                    this.gameRunning = false;
-                    this.currentGameRunning = false;
+                    gameRunning = false;
+                    currentGameRunning = false;
                 }
                 else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
-                    this.currentGameRunning = false;
+                    currentGameRunning = false;
                 }
                 else {
                     System.out.println("[!] Unknown Command: type \"help\" for list of commands");
                 }
             }
         }
+    }
+
+    protected boolean revealCell(String userInput, GameManager game, OutputStream outputStream) throws IOException {
+        String[] toRevealPoint = userInput.split(",");
+
+        GameStatus resultingStatusAfterReveal = game.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));
+
+        if (resultingStatusAfterReveal == GameStatus.VICTORY) {
+            outputStream.write("YOU WON!\n".getBytes());
+            return false;
+        }
+        else if (resultingStatusAfterReveal == GameStatus.LOST) {
+            outputStream.write(game.getBoardAsString().getBytes());
+            outputStream.write("YOU LOST!\n".getBytes());
+            return false;
+        }
+
+        return true;
+    }
+
+    protected boolean regexMatch(String input, String regex) {
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.find();
     }
 
     protected int getDesiredBoardSize(InputStream inputStream, OutputStream outputStream) throws IOException {
