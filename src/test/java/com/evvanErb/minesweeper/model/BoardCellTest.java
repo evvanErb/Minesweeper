@@ -214,7 +214,9 @@ public class BoardCellTest {
     Board board = this.buildBoard(10);
 
     board.changeFlag(-1,7);
+    board.changeFlag(7,-1);
     board.changeFlag(7, 11);
+    board.changeFlag(11, 7);
     ArrayList<ArrayList<Cell>> cells = board.getBoard();
 
     for (ArrayList<Cell> rowList : cells) {
