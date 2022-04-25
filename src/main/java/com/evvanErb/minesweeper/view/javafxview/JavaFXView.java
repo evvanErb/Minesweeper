@@ -48,7 +48,7 @@ public class JavaFXView extends Application {
                 boardView
         );
 
-        this.drawInitBoardView(boardView);
+        this.cellsView = this.drawInitBoardView(boardView, this.size);
 
         //run view
         Scene scene = new Scene(mainView);
@@ -57,7 +57,7 @@ public class JavaFXView extends Application {
         stage.show();
     }
 
-    private void updateBoardView() {
+    protected void updateBoardView() {
 
         String boardAsAPI = this.game.getBoardAsAPI();
         String[] rows = boardAsAPI.split("\n");
@@ -90,7 +90,7 @@ public class JavaFXView extends Application {
         }
     }
 
-    private void reveal(MouseEvent event, int rowSaved, int columnSaved) {
+    protected void reveal(MouseEvent event, int rowSaved, int columnSaved) {
 
         if (this.game.getGameStatus() != GameStatus.RUNNING) { return; }
 
@@ -117,13 +117,13 @@ public class JavaFXView extends Application {
         }
     }
 
-    private void drawInitBoardView(GridPane boardView) {
+    protected ArrayList<ArrayList<Button>> drawInitBoardView(GridPane boardView, int size) {
 
-        this.cellsView = new ArrayList<ArrayList<Button>>();
-        for(int row = 0; row < this.size; row++) {
+        ArrayList<ArrayList<Button>> cellsView = new ArrayList<ArrayList<Button>>();
+        for (int row = 0; row < size; row++) {
 
-            this.cellsView.add(new ArrayList<Button>());
-            for(int column = 0; column < this.size; column++) {
+            cellsView.add(new ArrayList<Button>());
+            for (int column = 0; column < size; column++) {
 
                 Button cell = new Button("  ");
                 final int rowSaved = row;
@@ -133,12 +133,14 @@ public class JavaFXView extends Application {
 
                 cell.setStyle("-fx-background-color: grey; -fx-text-fill: white;");
                 boardView.add(cell, column, row);
-                this.cellsView.get(row).add(cell);
+                cellsView.get(row).add(cell);
             }
         }
+
+        return cellsView;
     }
 
-    private GridPane initGridPane(int xLength, int yLength) {
+    protected GridPane initGridPane(int xLength, int yLength) {
 
         GridPane newGridPane = new GridPane();
         newGridPane.setMinSize(xLength, yLength);
@@ -151,7 +153,7 @@ public class JavaFXView extends Application {
         return newGridPane;
     }
 
-    private void newGame(MouseEvent event, GridPane boardView) {
+    protected void newGame(MouseEvent event, GridPane boardView) {
 
         boardView.getChildren().clear();
         this.gameStatusLabel.setText("");
@@ -163,10 +165,10 @@ public class JavaFXView extends Application {
 
         this.game.startGame(sizeEntered);
         this.size = this.game.getBoardSize();
-        this.drawInitBoardView(boardView);
+        this.cellsView = this.drawInitBoardView(boardView, this.size);
     }
 
-    private void buildControls(GridPane controlView, GridPane boardView) {
+    protected void buildControls(GridPane controlView, GridPane boardView) {
 
         this.boardSizeInput = new TextField();
         this.boardSizeInput.appendText("25");

@@ -3,6 +3,9 @@ package com.evvanErb.minesweeper.view.terminalview;
 import com.evvanErb.minesweeper.model.board.GameStatus;
 import com.evvanErb.minesweeper.viewmodel.gamemanager.GameManager;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Scanner;
 
 public class TerminalView {
@@ -10,18 +13,17 @@ public class TerminalView {
     GameManager currentGame;
     boolean gameRunning;
     boolean currentGameRunning;
-    Scanner scanner;
 
-    public void main() {
+    public void main() throws IOException {
 
-        this.scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         this.gameRunning = true;
         this.currentGameRunning = true;
         this.currentGame = new GameManager();
 
         while (this.gameRunning) {
 
-            int boardSize = this.getDesiredBoardSize();
+            int boardSize = this.getDesiredBoardSize(System.in, System.out);
             this.currentGame.startGame(boardSize);
             this.currentGameRunning = true;
 
@@ -63,17 +65,19 @@ public class TerminalView {
         }
     }
 
-    protected int getDesiredBoardSize() {
+    protected int getDesiredBoardSize(InputStream inputStream, OutputStream outputStream) throws IOException {
+
+        Scanner scanner = new Scanner(inputStream);
 
         boolean gotInteger = false;
         int size = 0;
 
         do {
             try {
-                System.out.print("Enter a board size: ");
-                size = Integer.parseInt(this.scanner.nextLine());
+                outputStream.write("Enter a board size: ".getBytes());
+                size = Integer.parseInt(scanner.nextLine());
                 gotInteger = true;
-            } catch (NumberFormatException error) { System.out.println("[!] Please enter a number"); }
+            } catch (NumberFormatException error) { outputStream.write("[!] Please enter a number\n".getBytes()); }
         } while(! gotInteger);
 
         return size;

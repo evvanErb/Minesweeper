@@ -1,9 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Minesweeper,com.evvanErb.minesweeper.view.terminalview,TerminalView,174,3,24,0,43,1,14,1,2,1
-Minesweeper,com.evvanErb.minesweeper.model.cell,Cell,0,65,0,4,0,19,0,10,0,8
-Minesweeper,com.evvanErb.minesweeper.model.board,Board,0,792,0,132,0,166,0,84,0,18
-Minesweeper,com.evvanErb.minesweeper.model.board,GameStatus,0,21,0,0,0,4,0,1,0,1
-Minesweeper,com.evvanErb.minesweeper.viewmodel.gamemanager,GameManager,0,50,0,0,0,15,0,10,0,10
-Minesweeper,com.evvanErb.minesweeper.view.javafxview,JavaFXView,423,0,20,0,93,0,22,0,11,0
-Minesweeper,com.evvanErb.minesweeper.view.javafxview,JavaFXView.new HashMap() {...},51,0,0,0,3,0,1,0,1,0
-Minesweeper,com.evvanErb.minesweeper,Main,29,0,4,0,8,0,4,0,2,0
