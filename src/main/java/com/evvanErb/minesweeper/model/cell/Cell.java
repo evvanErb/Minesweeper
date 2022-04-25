@@ -1,13 +1,11 @@
 package com.evvanErb.minesweeper.model.cell;
 
-import com.evvanErb.minesweeper.model.board.Board;
-
 public class Cell {
 
-    private boolean isMine;
-    private int numMinesAdjacent;
-    private int xPosition;
-    private int yPosition;
+    private final boolean isMine;
+    private final int numMinesAdjacent;
+    private final int xPosition;
+    private final int yPosition;
     private boolean isFlagged;
     private boolean isRevealed;
 

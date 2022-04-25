@@ -11,4 +11,10 @@ public class TerminalViewTest {
     public void setUp() throws Exception {
 
     }
+
+    @Test
+    public void testGetDesiredBoardSize() {
+        TerminalView terminalView = new TerminalView();
+        //assertEquals(15, terminalView.getDesiredBoardSize());
+    }
 }
