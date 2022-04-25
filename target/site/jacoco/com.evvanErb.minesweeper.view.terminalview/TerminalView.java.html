@@ -36,71 +36,75 @@ import java.util.regex.Pattern;
 <span class="nc" id="L36">                String userInput = scanner.nextLine();</span>
 <span class="nc" id="L37">                userInput = userInput.toLowerCase();</span>
 
-<span class="nc" id="L39">                Pattern pattern = Pattern.compile(&quot;[0-9]+,[0-9]+&quot;, Pattern.CASE_INSENSITIVE);</span>
-<span class="nc" id="L40">                Matcher matcher = pattern.matcher(userInput);</span>
-<span class="nc" id="L41">                boolean matchFound = matcher.find();</span>
+<span class="nc" id="L39">                Pattern revealPattern = Pattern.compile(&quot;^[0-9]+,[0-9]+$&quot;, Pattern.CASE_INSENSITIVE);</span>
+<span class="nc" id="L40">                Matcher revealMatcher = revealPattern.matcher(userInput);</span>
+<span class="nc" id="L41">                boolean revealMatchFound = revealMatcher.find();</span>
 
-<span class="nc bnc" id="L43" title="All 2 branches missed.">                if (matchFound) {</span>
-<span class="nc" id="L44">                    String[] toRevealPoint = userInput.split(&quot;,&quot;);</span>
+<span class="nc" id="L43">                Pattern flagPattern = Pattern.compile(&quot;^f[0-9]+,[0-9]+$&quot;, Pattern.CASE_INSENSITIVE);</span>
+<span class="nc" id="L44">                Matcher flagMatcher = flagPattern.matcher(userInput);</span>
+<span class="nc" id="L45">                boolean flagMatchFound = flagMatcher.find();</span>
 
-<span class="nc" id="L46">                    GameStatus resultingStatusAfterReveal = null;</span>
-<span class="nc" id="L47">                    resultingStatusAfterReveal = this.currentGame.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                if (flagMatchFound) {</span>
+<span class="nc" id="L48">                    String[] toFlagPoint = userInput.substring(1).split(&quot;,&quot;);</span>
+<span class="nc" id="L49">                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));</span>
+<span class="nc" id="L50">                }</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                else if (revealMatchFound) {</span>
+<span class="nc" id="L52">                    String[] toRevealPoint = userInput.split(&quot;,&quot;);</span>
 
-<span class="nc bnc" id="L49" title="All 2 branches missed.">                    if (resultingStatusAfterReveal == GameStatus.VICTORY) {</span>
-<span class="nc" id="L50">                        System.out.println(&quot;YOU WON!&quot;);</span>
-<span class="nc" id="L51">                        this.currentGameRunning = false;</span>
+<span class="nc" id="L54">                    GameStatus resultingStatusAfterReveal = null;</span>
+<span class="nc" id="L55">                    resultingStatusAfterReveal = this.currentGame.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]));</span>
+
+<span class="nc bnc" id="L57" title="All 2 branches missed.">                    if (resultingStatusAfterReveal == GameStatus.VICTORY) {</span>
+<span class="nc" id="L58">                        System.out.println(&quot;YOU WON!&quot;);</span>
+<span class="nc" id="L59">                        this.currentGameRunning = false;</span>
                     }
-<span class="nc bnc" id="L53" title="All 2 branches missed.">                    else if (resultingStatusAfterReveal == GameStatus.LOST) {</span>
-<span class="nc" id="L54">                        System.out.println(this.currentGame.getBoardAsString());</span>
-<span class="nc" id="L55">                        System.out.println(&quot;YOU LOST!&quot;);</span>
-<span class="nc" id="L56">                        this.currentGameRunning = false;</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">                    else if (resultingStatusAfterReveal == GameStatus.LOST) {</span>
+<span class="nc" id="L62">                        System.out.println(this.currentGame.getBoardAsString());</span>
+<span class="nc" id="L63">                        System.out.println(&quot;YOU LOST!&quot;);</span>
+<span class="nc" id="L64">                        this.currentGameRunning = false;</span>
                     }
-<span class="nc" id="L58">                }</span>
-<span class="nc bnc" id="L59" title="All 4 branches missed.">                else if (userInput.equals(&quot;help&quot;) || userInput.equals(&quot;h&quot;)) {</span>
-<span class="nc" id="L60">                    System.out.println(</span>
+<span class="nc" id="L66">                }</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">                else if (userInput.equals(&quot;help&quot;) || userInput.equals(&quot;h&quot;)) {</span>
+<span class="nc" id="L68">                    System.out.println(</span>
                             &quot;&quot;&quot;
                             To Quit: &quot;quit&quot; or &quot;q&quot;
                             For New Game: &quot;new game&quot; or &quot;new&quot; or &quot;n&quot;
                             To Flag a Point: &quot;FX,Y&quot;
-                            To Reveal a point: &quot;X,Y&quot;
+                            To Reveal a Point: &quot;X,Y&quot;
                             To Print this Menu: &quot;help&quot; or &quot;h&quot;
                             &quot;&quot;&quot;
                     );
                 }
-<span class="nc bnc" id="L70" title="All 4 branches missed.">                else if (userInput.equals(&quot;quit&quot;) || userInput.equals(&quot;q&quot;)) {</span>
-<span class="nc" id="L71">                    this.gameRunning = false;</span>
-<span class="nc" id="L72">                    this.currentGameRunning = false;</span>
+<span class="nc bnc" id="L78" title="All 4 branches missed.">                else if (userInput.equals(&quot;quit&quot;) || userInput.equals(&quot;q&quot;)) {</span>
+<span class="nc" id="L79">                    this.gameRunning = false;</span>
+<span class="nc" id="L80">                    this.currentGameRunning = false;</span>
                 }
-<span class="nc bnc" id="L74" title="All 6 branches missed.">                else if (userInput.equals(&quot;new game&quot;) || userInput.equals(&quot;new&quot;) || userInput.equals(&quot;n&quot;)) {</span>
-<span class="nc" id="L75">                    this.currentGameRunning = false;</span>
+<span class="nc bnc" id="L82" title="All 6 branches missed.">                else if (userInput.equals(&quot;new game&quot;) || userInput.equals(&quot;new&quot;) || userInput.equals(&quot;n&quot;)) {</span>
+<span class="nc" id="L83">                    this.currentGameRunning = false;</span>
                 }
-<span class="nc bnc" id="L77" title="All 4 branches missed.">                else if (userInput.length() &gt; 1 &amp;&amp; userInput.charAt(0) == 'f') {</span>
-<span class="nc" id="L78">                    String[] toFlagPoint = userInput.substring(1).split(&quot;,&quot;);</span>
-<span class="nc" id="L79">                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));</span>
-<span class="nc" id="L80">                }</span>
                 else {
-<span class="nc" id="L82">                    System.out.println(&quot;[!] Unknown Command: type \&quot;help\&quot; for list of commands&quot;);</span>
+<span class="nc" id="L86">                    System.out.println(&quot;[!] Unknown Command: type \&quot;help\&quot; for list of commands&quot;);</span>
                 }
-<span class="nc" id="L84">            }</span>
-<span class="nc" id="L85">        }</span>
-<span class="nc" id="L86">    }</span>
+<span class="nc" id="L88">            }</span>
+<span class="nc" id="L89">        }</span>
+<span class="nc" id="L90">    }</span>
 
     protected int getDesiredBoardSize(InputStream inputStream, OutputStream outputStream) throws IOException {
 
-<span class="fc" id="L90">        Scanner scanner = new Scanner(inputStream);</span>
+<span class="fc" id="L94">        Scanner scanner = new Scanner(inputStream);</span>
 
-<span class="fc" id="L92">        boolean gotInteger = false;</span>
-<span class="fc" id="L93">        int size = 0;</span>
+<span class="fc" id="L96">        boolean gotInteger = false;</span>
+<span class="fc" id="L97">        int size = 0;</span>
 
         do {
             try {
-<span class="fc" id="L97">                outputStream.write(&quot;Enter a board size: &quot;.getBytes());</span>
-<span class="fc" id="L98">                size = Integer.parseInt(scanner.nextLine());</span>
-<span class="fc" id="L99">                gotInteger = true;</span>
-<span class="fc" id="L100">            } catch (NumberFormatException error) { outputStream.write(&quot;[!] Please enter a number\n&quot;.getBytes()); }</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        } while(! gotInteger);</span>
+<span class="fc" id="L101">                outputStream.write(&quot;Enter a board size: &quot;.getBytes());</span>
+<span class="fc" id="L102">                size = Integer.parseInt(scanner.nextLine());</span>
+<span class="fc" id="L103">                gotInteger = true;</span>
+<span class="fc" id="L104">            } catch (NumberFormatException error) { outputStream.write(&quot;[!] Please enter a number\n&quot;.getBytes()); }</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        } while(! gotInteger);</span>
 
-<span class="fc" id="L103">        return size;</span>
+<span class="fc" id="L107">        return size;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

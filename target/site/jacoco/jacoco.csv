@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Minesweeper,com.evvanErb.minesweeper.view.terminalview,TerminalView,180,32,28,2,43,10,15,3,1,2
+Minesweeper,com.evvanErb.minesweeper.view.terminalview,TerminalView,184,32,26,2,46,10,14,3,1,2
 Minesweeper,com.evvanErb.minesweeper.model.cell,Cell,0,65,0,4,0,19,0,10,0,8
 Minesweeper,com.evvanErb.minesweeper.model.board,Board,0,792,0,132,0,166,0,84,0,18
 Minesweeper,com.evvanErb.minesweeper.model.board,GameStatus,0,21,0,0,0,4,0,1,0,1

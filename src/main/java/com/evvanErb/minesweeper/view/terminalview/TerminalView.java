@@ -36,11 +36,19 @@ public class TerminalView {
                 String userInput = scanner.nextLine();
                 userInput = userInput.toLowerCase();
 
-                Pattern pattern = Pattern.compile("[0-9]+,[0-9]+", Pattern.CASE_INSENSITIVE);
-                Matcher matcher = pattern.matcher(userInput);
-                boolean matchFound = matcher.find();
+                Pattern revealPattern = Pattern.compile("^[0-9]+,[0-9]+$", Pattern.CASE_INSENSITIVE);
+                Matcher revealMatcher = revealPattern.matcher(userInput);
+                boolean revealMatchFound = revealMatcher.find();
 
-                if (matchFound) {
+                Pattern flagPattern = Pattern.compile("^f[0-9]+,[0-9]+$", Pattern.CASE_INSENSITIVE);
+                Matcher flagMatcher = flagPattern.matcher(userInput);
+                boolean flagMatchFound = flagMatcher.find();
+
+                if (flagMatchFound) {
+                    String[] toFlagPoint = userInput.substring(1).split(",");
+                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
+                }
+                else if (revealMatchFound) {
                     String[] toRevealPoint = userInput.split(",");
 
                     GameStatus resultingStatusAfterReveal = null;
@@ -73,10 +81,6 @@ public class TerminalView {
                 }
                 else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
                     this.currentGameRunning = false;
-                }
-                else if (userInput.length() > 1 && userInput.charAt(0) == 'f') {
-                    String[] toFlagPoint = userInput.substring(1).split(",");
-                    this.currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
                 }
                 else {
                     System.out.println("[!] Unknown Command: type \"help\" for list of commands");

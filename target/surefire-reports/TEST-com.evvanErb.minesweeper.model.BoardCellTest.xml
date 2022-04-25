@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.evvanErb.minesweeper.model.BoardCellTest" time="0.01" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.evvanErb.minesweeper.model.BoardCellTest" time="0.012" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter3380711904902420880.jar /home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire 2022-04-25T11-33-36_737-jvmRun1 surefire16604745297513812281tmp surefire_02437771271096471672tmp"/>
+    <property name="sun.java.command" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter8711929208128338900.jar /home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire 2022-04-25T11-40-31_749-jvmRun1 surefire676105349318177805tmp surefire_017476528507054218783tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/test-classes:/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/classes:/home/evvanerb/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/evvanerb/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/evvanerb/.m2/repository/org/mockito/mockito-core/4.4.0/mockito-core-4.4.0.jar:/home/evvanerb/.m2/repository/net/bytebuddy/byte-buddy/1.12.8/byte-buddy-1.12.8.jar:/home/evvanerb/.m2/repository/net/bytebuddy/byte-buddy-agent/1.12.8/byte-buddy-agent-1.12.8.jar:/home/evvanerb/.m2/repository/org/objenesis/objenesis/3.2/objenesis-3.2.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-controls/17.0.1/javafx-controls-17.0.1.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-controls/17.0.1/javafx-controls-17.0.1-linux.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-graphics/17.0.1/javafx-graphics-17.0.1.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-graphics/17.0.1/javafx-graphics-17.0.1-linux.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-base/17.0.1/javafx-base-17.0.1.jar:/home/evvanerb/.m2/repository/org/openjfx/javafx-base/17.0.1/javafx-base-17.0.1-linux.jar:/home/evvanerb/.m2/repository/org/testfx/testfx-core/4.0.16-alpha/testfx-core-4.0.16-alpha.jar:/home/evvanerb/.m2/repository/org/assertj/assertj-core/3.13.2/assertj-core-3.13.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter3380711904902420880.jar"/>
+    <property name="surefire.real.class.path" value="/home/evvanerb/Dropbox/CSProjects/Minesweeper/target/surefire/surefirebooter8711929208128338900.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.2+8-Ubuntu-120.04"/>
     <property name="user.name" value="evvanerb"/>
@@ -52,14 +52,14 @@
     <property name="java.class.version" value="61.0"/>
   </properties>
   <testcase name="testRevealMine" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
-  <testcase name="testRevealNonMine" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
-  <testcase name="testBoardAsString" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.001"/>
+  <testcase name="testRevealNonMine" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.001"/>
+  <testcase name="testBoardAsString" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
   <testcase name="testGameStausLost" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
   <testcase name="testChangeFlagBadPoint" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
-  <testcase name="testBoardASAPIAllRevealed" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
-  <testcase name="testBoardAsStringAllRevealed" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.001"/>
+  <testcase name="testBoardASAPIAllRevealed" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.001"/>
+  <testcase name="testBoardAsStringAllRevealed" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
   <testcase name="testBoardAsAPI" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
-  <testcase name="testGameStausVictory" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
+  <testcase name="testGameStausVictory" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.001"/>
   <testcase name="testBoardGetSize" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.004"/>
   <testcase name="testRevealBadPoint" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0"/>
   <testcase name="testChangeFlag" classname="com.evvanErb.minesweeper.model.BoardCellTest" time="0.001"/>
