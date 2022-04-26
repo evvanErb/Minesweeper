@@ -31,36 +31,45 @@ public class TerminalView {
                 String userInput = scanner.nextLine();
                 userInput = userInput.toLowerCase();
 
-                if (this.regexMatch(userInput, "^f[0-9]+,[0-9]+$")) {
-                    String[] toFlagPoint = userInput.substring(1).split(",");
-                    currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
-                }
-                else if (this.regexMatch(userInput, "^[0-9]+,[0-9]+$")) {
-                    String[] toRevealPoint = userInput.split(",");
-                    currentGameRunning = this.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]), currentGame, System.out);
-                }
-                else if (userInput.equals("help") || userInput.equals("h")) {
-                    System.out.println(
-                            """
-                            To Quit: "quit" or "q"
-                            For New Game: "new game" or "new" or "n"
-                            To Flag a Point: "FX,Y"
-                            To Reveal a Point: "X,Y"
-                            To Print this Menu: "help" or "h"
-                            """
-                    );
-                }
-                else if (userInput.equals("quit") || userInput.equals("q")) {
+                if (userInput.equals("quit") || userInput.equals("q")) {
                     gameRunning = false;
                     currentGameRunning = false;
                 }
-                else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
-                    currentGameRunning = false;
-                }
                 else {
-                    System.out.println("[!] Unknown Command: type \"help\" for list of commands");
+                    currentGameRunning = this.handleUserInput(userInput, currentGame, System.out);
                 }
             }
+        }
+    }
+
+    protected boolean handleUserInput(String userInput, GameManager currentGame, OutputStream outputStream) throws IOException {
+        if (this.regexMatch(userInput, "^f[0-9]+,[0-9]+$")) {
+            String[] toFlagPoint = userInput.substring(1).split(",");
+            currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));
+            return true;
+        }
+        else if (this.regexMatch(userInput, "^[0-9]+,[0-9]+$")) {
+            String[] toRevealPoint = userInput.split(",");
+            return this.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]), currentGame, outputStream);
+        }
+        else if (userInput.equals("help") || userInput.equals("h")) {
+            outputStream.write(
+                    """
+                    To Quit: "quit" or "q"
+                    For New Game: "new game" or "new" or "n"
+                    To Flag a Point: "FX,Y"
+                    To Reveal a Point: "X,Y"
+                    To Print this Menu: "help" or "h"\n
+                    """.getBytes()
+            );
+            return true;
+        }
+        else if (userInput.equals("new game") || userInput.equals("new") || userInput.equals("n")) {
+            return false;
+        }
+        else {
+            outputStream.write("[!] Unknown Command: type \"help\" for list of commands\n".getBytes());
+            return true;
         }
     }
 
