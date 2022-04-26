@@ -11,8 +11,6 @@ import org.junit.Before;
 import java.io.*;
 import java.util.ArrayList;
 
-import static junit.framework.TestCase.fail;
-
 public class TerminalViewTest {
 
     @Before
@@ -32,7 +30,7 @@ public class TerminalViewTest {
 
             for(int column = 0; column < size; column++) {
 
-                //make diagnols mines for testing
+                //make diagonals mines for testing
                 boolean isMine = false;
                 int numMinesAdjacent = 0;
 
@@ -132,10 +130,36 @@ public class TerminalViewTest {
         assertEquals(true, terminalView.handleUserInput("f0,0", gameManager, out));
         assertEquals(true, terminalView.handleUserInput("a,1", gameManager, out));
         assertEquals(true, terminalView.handleUserInput("h", gameManager, out));
+        assertEquals(true, terminalView.handleUserInput("help", gameManager, out));
         assertEquals(false, terminalView.handleUserInput("n", gameManager, out));
+        assertEquals(false, terminalView.handleUserInput("new", gameManager, out));
+        assertEquals(false, terminalView.handleUserInput("new game", gameManager, out));
         assertEquals(true, terminalView.handleUserInput("f1,1", gameManager, out));
         assertEquals(false, terminalView.handleUserInput("1,1", gameManager, out));
         assertEquals(false, terminalView.handleUserInput("0,1", gameManager, out));
+    }
+
+    @Test
+    public void testRunCurrentGame() throws IOException {
+        GameManager gameManager = new GameManager(this.buildBoard(2));
+        TerminalView terminalView = new TerminalView();
+        BufferedOutputStream out = new BufferedOutputStream(OutputStream.nullOutputStream());
+
+        String input = "f0,0\nh\nf1,1\n0,1\n1,0";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        assertEquals(true, terminalView.runCurrentGame(gameManager, in, out));
+
+        input = "f0,0\nh\nf1,1\nnew game";
+        in = new ByteArrayInputStream(input.getBytes());
+        assertEquals(true, terminalView.runCurrentGame(gameManager, in, out));
+
+        input = "f0,0\nh\nf1,1\nquit";
+        in = new ByteArrayInputStream(input.getBytes());
+        assertEquals(false, terminalView.runCurrentGame(gameManager, in, out));
+
+        input = "f0,0\nh\nf1,1\nq";
+        in = new ByteArrayInputStream(input.getBytes());
+        assertEquals(false, terminalView.runCurrentGame(gameManager, in, out));
     }
 
 }

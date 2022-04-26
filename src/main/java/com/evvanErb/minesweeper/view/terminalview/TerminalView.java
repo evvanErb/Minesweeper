@@ -14,32 +14,35 @@ public class TerminalView {
 
     public void main() throws IOException {
 
-        Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
         GameManager currentGame = new GameManager();
 
         while (gameRunning) {
-
             int boardSize = this.getDesiredBoardSize(System.in, System.out);
             currentGame.startGame(boardSize);
-            boolean currentGameRunning = true;
+            gameRunning = this.runCurrentGame(currentGame, System.in, System.out);
+        }
+    }
 
-            while (currentGameRunning) {
+    protected boolean runCurrentGame(GameManager currentGame, InputStream inputStream, OutputStream outputStream) throws IOException {
 
-                System.out.println(currentGame.getBoardAsString());
-                System.out.print("Enter a command: ");
-                String userInput = scanner.nextLine();
-                userInput = userInput.toLowerCase();
+        Scanner scanner = new Scanner(inputStream);
+        boolean currentGameRunning = true;
+        while (currentGameRunning) {
 
-                if (userInput.equals("quit") || userInput.equals("q")) {
-                    gameRunning = false;
-                    currentGameRunning = false;
-                }
-                else {
-                    currentGameRunning = this.handleUserInput(userInput, currentGame, System.out);
-                }
+            outputStream.write((currentGame.getBoardAsString() + "\nEnter a command: ").getBytes());
+            String userInput = scanner.nextLine();
+            userInput = userInput.toLowerCase();
+
+            if (userInput.equals("quit") || userInput.equals("q")) {
+                return false;
+            }
+            else {
+                currentGameRunning = this.handleUserInput(userInput, currentGame, outputStream);
             }
         }
+
+        return true;
     }
 
     protected boolean handleUserInput(String userInput, GameManager currentGame, OutputStream outputStream) throws IOException {

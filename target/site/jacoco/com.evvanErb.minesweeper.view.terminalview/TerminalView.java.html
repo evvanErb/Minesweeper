@@ -14,103 +14,106 @@ import java.util.regex.Pattern;
 
     public void main() throws IOException {
 
-<span class="nc" id="L17">        Scanner scanner = new Scanner(System.in);</span>
-<span class="nc" id="L18">        boolean gameRunning = true;</span>
-<span class="nc" id="L19">        GameManager currentGame = new GameManager();</span>
+<span class="nc" id="L17">        boolean gameRunning = true;</span>
+<span class="nc" id="L18">        GameManager currentGame = new GameManager();</span>
 
-<span class="nc bnc" id="L21" title="All 2 branches missed.">        while (gameRunning) {</span>
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        while (gameRunning) {</span>
+<span class="nc" id="L21">            int boardSize = this.getDesiredBoardSize(System.in, System.out);</span>
+<span class="nc" id="L22">            currentGame.startGame(boardSize);</span>
+<span class="nc" id="L23">            gameRunning = this.runCurrentGame(currentGame, System.in, System.out);</span>
+<span class="nc" id="L24">        }</span>
+<span class="nc" id="L25">    }</span>
 
-<span class="nc" id="L23">            int boardSize = this.getDesiredBoardSize(System.in, System.out);</span>
-<span class="nc" id="L24">            currentGame.startGame(boardSize);</span>
-<span class="nc" id="L25">            boolean currentGameRunning = true;</span>
+    protected boolean runCurrentGame(GameManager currentGame, InputStream inputStream, OutputStream outputStream) throws IOException {
 
-<span class="nc bnc" id="L27" title="All 2 branches missed.">            while (currentGameRunning) {</span>
+<span class="fc" id="L29">        Scanner scanner = new Scanner(inputStream);</span>
+<span class="fc" id="L30">        boolean currentGameRunning = true;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        while (currentGameRunning) {</span>
 
-<span class="nc" id="L29">                System.out.println(currentGame.getBoardAsString());</span>
-<span class="nc" id="L30">                System.out.print(&quot;Enter a command: &quot;);</span>
-<span class="nc" id="L31">                String userInput = scanner.nextLine();</span>
-<span class="nc" id="L32">                userInput = userInput.toLowerCase();</span>
+<span class="fc" id="L33">            outputStream.write((currentGame.getBoardAsString() + &quot;\nEnter a command: &quot;).getBytes());</span>
+<span class="fc" id="L34">            String userInput = scanner.nextLine();</span>
+<span class="fc" id="L35">            userInput = userInput.toLowerCase();</span>
 
-<span class="nc bnc" id="L34" title="All 4 branches missed.">                if (userInput.equals(&quot;quit&quot;) || userInput.equals(&quot;q&quot;)) {</span>
-<span class="nc" id="L35">                    gameRunning = false;</span>
-<span class="nc" id="L36">                    currentGameRunning = false;</span>
-                }
-                else {
-<span class="nc" id="L39">                    currentGameRunning = this.handleUserInput(userInput, currentGame, System.out);</span>
-                }
-<span class="nc" id="L41">            }</span>
-<span class="nc" id="L42">        }</span>
-<span class="nc" id="L43">    }</span>
+<span class="fc bfc" id="L37" title="All 4 branches covered.">            if (userInput.equals(&quot;quit&quot;) || userInput.equals(&quot;q&quot;)) {</span>
+<span class="fc" id="L38">                return false;</span>
+            }
+            else {
+<span class="fc" id="L41">                currentGameRunning = this.handleUserInput(userInput, currentGame, outputStream);</span>
+            }
+<span class="fc" id="L43">        }</span>
+
+<span class="fc" id="L45">        return true;</span>
+    }
 
     protected boolean handleUserInput(String userInput, GameManager currentGame, OutputStream outputStream) throws IOException {
-<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (this.regexMatch(userInput, &quot;^f[0-9]+,[0-9]+$&quot;)) {</span>
-<span class="nc" id="L47">            String[] toFlagPoint = userInput.substring(1).split(&quot;,&quot;);</span>
-<span class="nc" id="L48">            currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));</span>
-<span class="nc" id="L49">            return true;</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (this.regexMatch(userInput, &quot;^f[0-9]+,[0-9]+$&quot;)) {</span>
+<span class="fc" id="L50">            String[] toFlagPoint = userInput.substring(1).split(&quot;,&quot;);</span>
+<span class="fc" id="L51">            currentGame.changeCellFlag(Integer.parseInt(toFlagPoint[0]), Integer.parseInt(toFlagPoint[1]));</span>
+<span class="fc" id="L52">            return true;</span>
         }
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        else if (this.regexMatch(userInput, &quot;^[0-9]+,[0-9]+$&quot;)) {</span>
-<span class="nc" id="L52">            String[] toRevealPoint = userInput.split(&quot;,&quot;);</span>
-<span class="nc" id="L53">            return this.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]), currentGame, outputStream);</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        else if (this.regexMatch(userInput, &quot;^[0-9]+,[0-9]+$&quot;)) {</span>
+<span class="fc" id="L55">            String[] toRevealPoint = userInput.split(&quot;,&quot;);</span>
+<span class="fc" id="L56">            return this.revealCell(Integer.parseInt(toRevealPoint[0]), Integer.parseInt(toRevealPoint[1]), currentGame, outputStream);</span>
         }
-<span class="nc bnc" id="L55" title="All 4 branches missed.">        else if (userInput.equals(&quot;help&quot;) || userInput.equals(&quot;h&quot;)) {</span>
-<span class="nc" id="L56">            outputStream.write(</span>
+<span class="fc bfc" id="L58" title="All 4 branches covered.">        else if (userInput.equals(&quot;help&quot;) || userInput.equals(&quot;h&quot;)) {</span>
+<span class="fc" id="L59">            outputStream.write(</span>
                     &quot;&quot;&quot;
                     To Quit: &quot;quit&quot; or &quot;q&quot;
                     For New Game: &quot;new game&quot; or &quot;new&quot; or &quot;n&quot;
                     To Flag a Point: &quot;FX,Y&quot;
                     To Reveal a Point: &quot;X,Y&quot;
                     To Print this Menu: &quot;help&quot; or &quot;h&quot;\n
-<span class="nc" id="L63">                    &quot;&quot;&quot;.getBytes()</span>
+<span class="fc" id="L66">                    &quot;&quot;&quot;.getBytes()</span>
             );
-<span class="nc" id="L65">            return true;</span>
+<span class="fc" id="L68">            return true;</span>
         }
-<span class="nc bnc" id="L67" title="All 6 branches missed.">        else if (userInput.equals(&quot;new game&quot;) || userInput.equals(&quot;new&quot;) || userInput.equals(&quot;n&quot;)) {</span>
-<span class="nc" id="L68">            return false;</span>
+<span class="fc bfc" id="L70" title="All 6 branches covered.">        else if (userInput.equals(&quot;new game&quot;) || userInput.equals(&quot;new&quot;) || userInput.equals(&quot;n&quot;)) {</span>
+<span class="fc" id="L71">            return false;</span>
         }
         else {
-<span class="nc" id="L71">            outputStream.write(&quot;[!] Unknown Command: type \&quot;help\&quot; for list of commands\n&quot;.getBytes());</span>
-<span class="nc" id="L72">            return true;</span>
+<span class="fc" id="L74">            outputStream.write(&quot;[!] Unknown Command: type \&quot;help\&quot; for list of commands\n&quot;.getBytes());</span>
+<span class="fc" id="L75">            return true;</span>
         }
     }
 
     protected boolean revealCell(int xPos, int yPos, GameManager game, OutputStream outputStream) throws IOException {
-<span class="fc" id="L77">        GameStatus resultingStatusAfterReveal = game.revealCell(xPos, yPos);</span>
+<span class="fc" id="L80">        GameStatus resultingStatusAfterReveal = game.revealCell(xPos, yPos);</span>
 
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (resultingStatusAfterReveal == GameStatus.VICTORY) {</span>
-<span class="fc" id="L80">            outputStream.write(&quot;YOU WON!\n&quot;.getBytes());</span>
-<span class="fc" id="L81">            return false;</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (resultingStatusAfterReveal == GameStatus.VICTORY) {</span>
+<span class="fc" id="L83">            outputStream.write(&quot;YOU WON!\n&quot;.getBytes());</span>
+<span class="fc" id="L84">            return false;</span>
         }
-<span class="fc bfc" id="L83" title="All 2 branches covered.">        else if (resultingStatusAfterReveal == GameStatus.LOST) {</span>
-<span class="fc" id="L84">            outputStream.write(game.getBoardAsString().getBytes());</span>
-<span class="fc" id="L85">            outputStream.write(&quot;YOU LOST!\n&quot;.getBytes());</span>
-<span class="fc" id="L86">            return false;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        else if (resultingStatusAfterReveal == GameStatus.LOST) {</span>
+<span class="fc" id="L87">            outputStream.write(game.getBoardAsString().getBytes());</span>
+<span class="fc" id="L88">            outputStream.write(&quot;YOU LOST!\n&quot;.getBytes());</span>
+<span class="fc" id="L89">            return false;</span>
         }
 
-<span class="fc" id="L89">        return true;</span>
+<span class="fc" id="L92">        return true;</span>
     }
 
     protected boolean regexMatch(String input, String regex) {
-<span class="fc" id="L93">        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);</span>
-<span class="fc" id="L94">        Matcher matcher = pattern.matcher(input);</span>
-<span class="fc" id="L95">        return matcher.find();</span>
+<span class="fc" id="L96">        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);</span>
+<span class="fc" id="L97">        Matcher matcher = pattern.matcher(input);</span>
+<span class="fc" id="L98">        return matcher.find();</span>
     }
 
     protected int getDesiredBoardSize(InputStream inputStream, OutputStream outputStream) throws IOException {
 
-<span class="fc" id="L100">        Scanner scanner = new Scanner(inputStream);</span>
+<span class="fc" id="L103">        Scanner scanner = new Scanner(inputStream);</span>
 
-<span class="fc" id="L102">        boolean gotInteger = false;</span>
-<span class="fc" id="L103">        int size = 0;</span>
+<span class="fc" id="L105">        boolean gotInteger = false;</span>
+<span class="fc" id="L106">        int size = 0;</span>
 
         do {
             try {
-<span class="fc" id="L107">                outputStream.write(&quot;Enter a board size: &quot;.getBytes());</span>
-<span class="fc" id="L108">                size = Integer.parseInt(scanner.nextLine());</span>
-<span class="fc" id="L109">                gotInteger = true;</span>
-<span class="fc" id="L110">            } catch (NumberFormatException error) { outputStream.write(&quot;[!] Please enter a number\n&quot;.getBytes()); }</span>
-<span class="fc bfc" id="L111" title="All 2 branches covered.">        } while(! gotInteger);</span>
+<span class="fc" id="L110">                outputStream.write(&quot;Enter a board size: &quot;.getBytes());</span>
+<span class="fc" id="L111">                size = Integer.parseInt(scanner.nextLine());</span>
+<span class="fc" id="L112">                gotInteger = true;</span>
+<span class="fc" id="L113">            } catch (NumberFormatException error) { outputStream.write(&quot;[!] Please enter a number\n&quot;.getBytes()); }</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        } while(! gotInteger);</span>
 
-<span class="fc" id="L113">        return size;</span>
+<span class="fc" id="L116">        return size;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
